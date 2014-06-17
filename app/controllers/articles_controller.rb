@@ -13,6 +13,9 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def index
+    @articles = Article.order(created_at: :desc)
+  end
 
   private
 
