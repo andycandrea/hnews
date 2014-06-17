@@ -1,0 +1,24 @@
+<h1>Article#new</h1>
+<p>Find me in app/views/article/new.html.erb</p>
+
+<%= form_for @article, url: { action: "create" } do |f| %>
+  <%= f.text_field :title %>
+  <%= f.text_area :url %>
+  <%= f.text_area :content %>
+  <%= f.submit "Submit" %>
+<% end %>
+<% was_valid = false %>
+<% if @article.errors.any? %>
+  <div id="error_explanation">
+    <h2>The following errors prevented this article from being saved:</h2>
+    <ul>
+      <% @article.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if flash[:notice] %>
+  <p id="notice"><%= flash[:notice] %></p>
+<% end %>

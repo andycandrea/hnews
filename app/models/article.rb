@@ -1,3 +1,3 @@
 class Article < ActiveRecord::Base
-  validates :title, presence: true
+  validates :title,:presence => {:message => 'cannot be blank' } 
 end
