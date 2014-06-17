@@ -2,7 +2,13 @@ require 'spec_helper'
 
 describe "creating articles" do
   context "when given invalid parameters" do
-    let(:params) { { title: '', url: '', content: '' }}
+    let(:params) do
+      {
+        title: '',
+        url: '',
+        content: ''
+      }
+    end
 
     before do
       visit '/articles/new'
@@ -15,12 +21,18 @@ describe "creating articles" do
     end
 
     it "displays errors on title" do
-      expect(page).to have_content('Title cannot be blank')
+      expect(page).to have_content('Title can\'t be blank')
     end
   end
 
   context "when given valid parameters" do
-    let(:params) { { title: 'Wow. Such Read', url: 'http://example.com', content: 'Check it' }}
+    let(:params) do 
+      {
+        title: 'Wow. Such Read',
+        url: 'http://example.com',
+        content: 'Check it'
+      }
+    end
 
     before do
       visit '/articles/new'
