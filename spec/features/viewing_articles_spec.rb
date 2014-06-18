@@ -1,30 +1,14 @@
 require 'spec_helper'
 
 describe "viewing articles" do
-  let(:params) do
-    {
-      title: 'Such sort.',
-      url: 'http://www.example.com',
-      content: 'Much database.'
-    }
-  end
-
-  before do
-    #Decided to use the new article page rather than Article.create for further testing of my code
-    visit '/articles/new'
-
-    params.each do |attr, val|
-      fill_in "article_#{attr}", with: val
-    end
-
-    click_button 'Submit'
-  end
+  let!(:old_article) { create(:article) }
+  let!(:new_article) { create(:article, title: "Title 2") }
 
   it "should display new entry" do
     visit '/articles'
-    expect(page).to have_content('Such sort.')
-    expect(page).to have_content('http://www.example.com')
-    expect(page).to have_content('Much database.')
+    expect(page).to have_content('Such title')
+    expect(page).to have_content('http://www.much.url')
+    expect(page).to have_content('Wow.')
   end
   
   it "should have the content 'Title'" do
@@ -32,9 +16,13 @@ describe "viewing articles" do
     expect(page).to have_content('Title')
   end
 
-  it "should have the content 'Date'" do
+  it "should have the content 'Created At'" do
     visit '/articles'
-    expect(page).to have_content('Date')
+    expect(page).to have_content('Created At')
   end
 
+  it "should be sorted by descending time of creation" do
+    visit '/articles'
+    page.body.index(new_article.title).should < page.body.index(old_article.title)
+  end
 end
