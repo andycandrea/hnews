@@ -1,6 +1,6 @@
 <% if @article.errors.any? %>
-  <div id="error_explanation">
-    <h2>The following errors prevented this article from being saved:</h2>
+  <div class="alert alert-danger">
+    <strong>The following errors prevented this article from being saved:</strong>
     <ul>
       <% @article.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -9,15 +9,14 @@
   </div>
 <% end %>
 
-<% if flash[:notice] %>
-  <p id="notice"><%= flash[:notice] %></p>
+<%= simple_form_for @article  do |f| %>
+  <%= f.input :title, :error => false, input_html: { class: 'form-control' } %>
+  <%= f.input :url, :as => :string, :error => false, input_html: { class: 'form-control' } %>
+  <%= f.input :content, input_html: { class: 'form-control' } %>
+  <%= f.button :submit, 'Submit' %>
 <% end %>
 
-<%= form_for @article do |f| %>
-  <%= f.text_field :title %>
-  <%= f.text_area :url %>
-  <%= f.text_area :content %>
-  <%= f.submit "Submit" %>
-<% end %>
+<br>
 
 <%= link_to 'Back to List', articles_path %>
+
