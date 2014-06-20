@@ -10,8 +10,8 @@
 <% end %>
 
 <%= simple_form_for @article  do |f| %>
-  <%= f.input :title, :error => false, input_html: { class: 'form-control' } %>
-  <%= f.input :url, :as => :string, :error => false, input_html: { class: 'form-control' } %>
+  <%= f.input :title, error: false, input_html: { class: 'form-control' } %>
+  <%= f.input :url, as: :string, error: false, input_html: { class: 'form-control' } %>
   <%= f.input :content, input_html: { class: 'form-control' } %>
   <%= f.button :submit, 'Submit' %>
 <% end %>

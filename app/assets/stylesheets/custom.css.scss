@@ -1,31 +1,5 @@
 @import "bootstrap";
 
-.article-title {
-  font-size: 18px;
-}
-
-.article-url {
-  margin-left: 0.4em;
-  font-size: 12px;
-  color: #ff5f19;
-}
-
-.article-date {
-  font-size: 12px;
-}
-
-.article-content {
-  margin-bottom: 0.6em;
-}
-
-.btn {
-  margin-top: 0.6em;
-}
-
-.navbar, .navbar-default, .navbar-brand {
-  background-color: #009aba;
-}
-
 a:link {
   color: #ff5f19;
 }
@@ -34,16 +8,41 @@ a:visited {
   color: #FF9465;
 }
 
-.navbar-brand, ul > li > a {
-  color: white !important;
+.article-date {
+  font-size: 12px;
+}
+
+.article-div {
+  margin-bottom: 0.6em;
+}
+
+.article-title {
+  font-size: 18px;
+}
+
+.article-url {
+  color: #ff5f19;
+  font-size: 12px;
+  margin-left: 0.4em;
+}
+
+.btn {
+  margin-top: 0.6em;
 }
 
 .footer {
+  border-color: #009aba !important;
   border-top: 0.5em solid;
-  border-color: #009aba;
+  margin: 1em 0em;
   padding-top: 0.75em;
-  margin-top: 1em;
-  margin-bottom: 1em;  
-  top: 3em;
   text-align: center;
+  top: 3em;  
+}
+
+.navbar, .navbar-brand, .navbar-default {
+  background-color: #009aba;
+}
+
+.navbar-brand, ul > li > a {
+  color: white !important;
 }

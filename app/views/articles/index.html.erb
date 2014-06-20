@@ -1,24 +1,26 @@
 <% @articles.each do |article| %>
-  <div>
+  <div class="article-div">
     <div>
       <span class="article-title">
         <strong><%= article.title %></strong>
       </span>
 
       <span class="article-url">
-        <% unless article.url == "" %>
-          <%= link_to '(' + article.url + ')', article.url %>
+        <% if article.url? %>
+          <%= link_to "(#{article.url})", article.url %>
         <% else %>
-          <a href="#">(text only)</a>
+          <span>(text only)</span>
         <% end %>
       </span>
     </div>
 
     <div class="article-date">Posted at <%= article.created_at %></div>
-    
-    <div class="article-content">
-      <%= article.content %>
-    </div>
+
+    <% if article.content? %>
+      <div class="article-content">
+        <%= article.content %>
+      </div>
+    <% end %>
 
   </div>
 <% end %>

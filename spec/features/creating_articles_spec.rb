@@ -21,11 +21,11 @@ describe "creating articles" do
     end
 
     it "displays errors on title" do
-      expect(page).to have_content('Title can\'t be blank')
+      page.should have_content('Title can\'t be blank')
     end
 
     it "displays errors on content and url" do
-      expect(page).to have_content('URL or content must have a value.')
+      page.should have_content('URL or content must have a value.')
     end
   end
 
@@ -49,7 +49,7 @@ describe "creating articles" do
     end
 
     it "displays an error when passed a URL and content" do
-      expect(page).to have_content('Article cannot contain both a URL and text content.')
+      page.should have_content('Article cannot contain both a URL and text content.')
     end
 
   end
@@ -71,7 +71,7 @@ describe "creating articles" do
       article.url.should == 'http://dogecoin.com/'
       article.content.should == ''
 
-      expect(page).to have_content('Article successfully created.')
+      page.should have_content('Article successfully created.')
     end
 
     it "creates a new Article with content and displays success" do
@@ -84,7 +84,7 @@ describe "creating articles" do
       article.url.should == ''
       article.content.should =='Such success, much test, wow.'
 
-      expect(page).to have_content('Article successfully created.')
+      page.should have_content('Article successfully created.')
     end
   end
 end

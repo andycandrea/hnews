@@ -18,7 +18,10 @@ describe ArticlesController do
   end
 
   describe "POST 'create'" do
-    before { post :create, article: { title: 'Wow. Such Read' } }
+
+    before do
+      post :create, article: { title: 'Wow. Such Read', url: "", content: "a" }
+    end
 
     it { should redirect_to(new_article_path) }
 

@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :article do
     title "Such title"
-    url "http://www.much.url"
-    content "Wow."
+    url "www.much.url"
+    content ""
   end
 end
