@@ -64,14 +64,10 @@ describe "creating articles" do
     it "creates a new Article with URL and displays success" do
       fill_in "article_url", with: "http://dogecoin.com/"
       click_button 'Submit'
-
-      article = Article.last
-
-      article.title.should == 'Much title, wow'
-      article.url.should == 'http://dogecoin.com/'
-      article.content.should == ''
-
+      
       page.should have_content('Article successfully created.')
+      page.should have_content('Much title, wow')
+      page.should have_content('http://dogecoin.com')
     end
 
     it "creates a new Article with content and displays success" do

@@ -23,7 +23,7 @@ describe ArticlesController do
       post :create, article: { title: 'Wow. Such Read', url: "", content: "a" }
     end
 
-    it { should redirect_to(new_article_path) }
+    it { should redirect_to(articles_path) }
 
     it "assigns article with provided title" do
       assigns(:article).title.should == 'Wow. Such Read'
