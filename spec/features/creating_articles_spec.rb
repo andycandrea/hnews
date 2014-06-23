@@ -21,7 +21,7 @@ describe "creating articles" do
     end
 
     it "displays errors on title" do
-      page.should have_content('Title can\'t be blank')
+      page.should have_content("Title can't be blank")
     end
 
     it "displays errors on content and url" do
