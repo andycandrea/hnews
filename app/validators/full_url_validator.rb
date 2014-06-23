@@ -4,7 +4,7 @@ class FullUrlValidator < ActiveModel::EachValidator
   
   def validate_each(record, attribute, value)
    
-    unless (valid_full_url?(value) ||  value == "")
+    unless valid_full_url?(value)
       record.errors[attribute] << (options[:message] || 'is not a valid URL.')
     end
   end
