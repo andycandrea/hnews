@@ -1,5 +1,5 @@
 class Article < ActiveRecord::Base
-  before_validation :sanitize_url, if: :url?
+  before_validation :prepend_url_scheme, if: :url?
 
   validates :title, presence: true
 
@@ -24,7 +24,7 @@ class Article < ActiveRecord::Base
     url? && content?
    end
 
-  def sanitize_url
+  def prepend_url_scheme
     unless url.start_with?("http")
       self.url = "http://#{url}"
     end

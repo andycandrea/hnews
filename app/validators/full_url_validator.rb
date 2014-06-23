@@ -2,8 +2,7 @@ class FullUrlValidator < ActiveModel::EachValidator
 
   VALID_SCHEMES = %w(http https)
   
-  def validate_each(record, attribute, value)
-   
+  def validate_each(record, attribute, value)   
     unless valid_full_url?(value)
       record.errors[attribute] << (options[:message] || 'is not a valid URL.')
     end
