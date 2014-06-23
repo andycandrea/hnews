@@ -1,23 +1,26 @@
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Created At</th>
-      <th>URL</th>
-      <th>Content</th>
-    </tr>
-  </thead>
+<% @articles.each do |article| %>
+  <div class="article-div">
+    <div>
+      <span class="article-title">
+        <strong><%= article.title %></strong>
+      </span>
 
-  <tbody>
-    <% @articles.each do |article| %>
-      <tr>
-        <td><%= article.title %></td>
-        <td><%= article.created_at %></td>
-        <td><%= article.url %></td>
-        <td><%= article.content %></td>
-      </tr>
+      <span class="article-url">
+        <% if article.url? %>
+          <%= link_to "(#{article.url})", article.url %>
+        <% else %>
+          <span>(text only)</span>
+        <% end %>
+      </span>
+    </div>
+
+    <div class="article-date">Posted at <%= article.created_at %></div>
+
+    <% if article.content? %>
+      <div class="article-content">
+        <%= article.content %>
+      </div>
     <% end %>
-  </tbody>
-</table>
 
-<%= link_to 'New Article', new_article_path %>
+  </div>
+<% end %>

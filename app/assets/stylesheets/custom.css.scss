@@ -1,0 +1,48 @@
+@import "bootstrap";
+
+a:link {
+  color: #ff5f19;
+}
+
+a:visited {
+  color: #FF9465;
+}
+
+.article-date {
+  font-size: 12px;
+}
+
+.article-div {
+  margin-bottom: 0.6em;
+}
+
+.article-title {
+  font-size: 18px;
+}
+
+.article-url {
+  color: #ff5f19;
+  font-size: 12px;
+  margin-left: 0.4em;
+}
+
+.btn {
+  margin-top: 0.6em;
+}
+
+.footer {
+  border-color: #009aba !important;
+  border-top: 0.5em solid;
+  margin: 1em 0em;
+  padding-top: 0.75em;
+  text-align: center;
+  top: 3em;  
+}
+
+.navbar, .navbar-brand, .navbar-default {
+  background-color: #009aba;
+}
+
+.navbar-brand, ul > li > a {
+  color: white !important;
+}

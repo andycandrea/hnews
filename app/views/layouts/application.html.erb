@@ -1,14 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Hnews</title>
+  <title>Hacker News Clone</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
+  <div class="container">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to 'Welcome to Haxx0r News', root_path, class: "navbar-brand" %> 
+      </div>
+      
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+          <%= link_to  new_article_path do %>
+            <div>Post new article <span class="glyphicon glyphicon-plus"></span></div>
+          <% end %>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-<%= yield %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success" id="notice">
+        <%= flash[:notice] %>
+      </div>
+    <% end %> 
 
+    <%= yield %>
+
+    <div class="footer col-md-12">
+      <div class="col-md-4"><a href="mailto:andy.andrea@viget.com">andy.andrea@viget.com</a></div>
+      <div class="col-md-4">Created by <a href="http://andycandrea.github.io">Andy Andrea</a></div>
+      <div class="col-md-4"><a href="http://github.com/andycandrea">github.com/andycandrea</a></div>
+    </div>
+
+  </div>
 </body>
 </html>

@@ -21,12 +21,16 @@ describe "creating articles" do
     end
 
     it "displays errors on title" do
-      expect(page).to have_content('Title can\'t be blank')
+      page.should have_content("Title can't be blank")
+    end
+
+    it "displays errors on content and url" do
+      page.should have_content('URL or content must have a value.')
     end
   end
 
-  context "when given valid parameters" do
-    let(:params) do 
+  context "When given too many parameters" do
+    let(:params) do
       {
         title: 'Wow. Such Read',
         url: 'http://example.com',
@@ -37,23 +41,46 @@ describe "creating articles" do
     before do
       visit '/articles/new'
 
-      params.each do |attr, value|
-        fill_in "article_#{attr}", with: value
+      params.each do |attr, val|
+        fill_in "article_#{attr}", with: val
       end
 
       click_button 'Submit'
     end
 
-    it "creates a new Article" do
-      article = Article.last
-
-      article.title.should == 'Wow. Such Read'
-      article.url.should == 'http://example.com'
-      article.content.should == 'Check it'
+    it "displays an error when passed a URL and content" do
+      page.should have_content('Article cannot contain both a URL and text content.')
     end
 
-    it "displays success message" do
-      expect(page).to have_content('Article successfully created.')
+  end
+
+  context "when given valid parameters" do 
+
+    before do
+      visit '/articles/new'
+      fill_in "article_title", with: "Much title, wow" 
+    end
+
+    it "creates a new Article with URL and displays success" do
+      fill_in "article_url", with: "http://dogecoin.com/"
+      click_button 'Submit'
+      
+      page.should have_content('Article successfully created.')
+      page.should have_content('Much title, wow')
+      page.should have_content('http://dogecoin.com')
+    end
+
+    it "creates a new Article with content and displays success" do
+      fill_in "article_content", with: "Such success, much test, wow."
+      click_button 'Submit'
+
+      article = Article.last
+
+      article.title.should == 'Much title, wow'
+      article.url.should == ''
+      article.content.should =='Such success, much test, wow.'
+
+      page.should have_content('Article successfully created.')
     end
   end
 end
