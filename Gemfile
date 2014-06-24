@@ -10,6 +10,7 @@ gem 'jquery-rails'
 
 gem 'bootstrap-sass'
 gem 'simple_form'
+gem 'bcrypt'
 
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'

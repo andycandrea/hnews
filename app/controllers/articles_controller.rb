@@ -7,7 +7,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
-      redirect_to articles_path, notice: "Article successfully created."
+      redirect_to root_path, notice: "Article successfully created."
     else
       render :new
     end
