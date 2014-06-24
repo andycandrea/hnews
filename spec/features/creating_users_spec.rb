@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'creating users' do
-      
   let(:params) do
     {
       name: 'picard',
@@ -12,7 +11,6 @@ describe 'creating users' do
   end
 
   context 'when given valid parameters' do
-
     it 'creates a new User and displays success' do
       visit '/users/new'
 
@@ -28,7 +26,6 @@ describe 'creating users' do
   context 'when given invalid parameters' do
     before do
       visit '/users/new'
-
       params.each do |attr, val|
         fill_in "user_#{attr}", with: val
       end
@@ -41,8 +38,10 @@ describe 'creating users' do
     end
 
     it 'rejects a password shorter than 6 characters' do
-      fill_in 'user_password', with: 'hello'
-      fill_in 'user_password_confirmation', with: 'hello'
+      %w(user_password user_password_confirmation).each do |attr|
+        fill_in attr, with: 'hello'
+      end
+
       click_button 'Submit'
       page.should have_content('Password is too short (minimum is 6 characters)')
     end

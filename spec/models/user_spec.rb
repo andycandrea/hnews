@@ -15,4 +15,5 @@ describe User do
   it { should validate_uniqueness_of(:email) }
   
   it { should allow_value('andy@viget.com', 'andy.andrea@cs.unc.edu').for(:email) }
+  it { should_not allow_value('fiz', 'a@b', 'andy@', '@com').for(:email) }
 end
