@@ -11,7 +11,7 @@ describe 'creating users' do
   end
 
   context 'when given valid parameters' do
-    it 'creates a new User and displays success' do
+    it 'creates a new User and signs them in' do
       visit '/users/new'
 
       params.each do |attr, val|
@@ -19,7 +19,7 @@ describe 'creating users' do
       end
 
       click_button 'Submit'
-      page.should have_content('Congratulations, you are now registered with Haxx0r News.')
+      page.should have_content('Sign out')
     end
   end
 

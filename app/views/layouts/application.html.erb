@@ -38,11 +38,9 @@
       </div>
     </nav>
 
-    <% if flash[:notice] %>
-      <div class="alert alert-success" id="notice">
-        <%= flash[:notice] %>
-      </div>
-    <% end %> 
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
 
     <%= yield %>
 

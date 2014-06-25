@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     if @user.save
       sign_in @user
-      redirect_to root_path, notice: 'Congratulations, you are now registered with Haxx0r News.'
+      redirect_to root_path
     else
       render :new
     end
