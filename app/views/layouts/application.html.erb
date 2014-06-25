@@ -27,6 +27,13 @@
             <div>Post new article <span class="glyphicon glyphicon-plus"></span></div>
           <% end %>
           </li>
+          <li>
+            <% if signed_in? %>
+              <%= link_to 'Sign out', signout_path, method: 'delete' %>
+            <% else %>
+              <%= link_to 'Sign in', signin_path %>
+            <% end %>
+          </li>
         </ul>
       </div>
     </nav>
