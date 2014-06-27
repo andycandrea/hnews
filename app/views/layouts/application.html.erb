@@ -22,20 +22,25 @@
       
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
         <ul class="nav navbar-nav navbar-right">
-          <li>
-          <%= link_to  new_article_path do %>
-            <div>Post new article <span class="glyphicon glyphicon-plus"></span></div>
+          <% if signed_in? %>
+            <li>
+            <%= link_to submit_path do %>
+              <div>Post new article <span class="glyphicon glyphicon-plus"></span></div>
+            <% end %>
+            </li>
+            <li>
+            <%= link_to 'Sign out', signout_path, method: 'delete' %>
+            </li>
+          <% else %>
+            <li><%= link_to 'Sign in', signin_path %></li>
           <% end %>
-          </li>
         </ul>
       </div>
     </nav>
 
-    <% if flash[:notice] %>
-      <div class="alert alert-success" id="notice">
-        <%= flash[:notice] %>
-      </div>
-    <% end %> 
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
 
     <%= yield %>
 

@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  before_action :require_signin, only: [:new, :create]
+
   def new
     @article = Article.new
   end
@@ -7,7 +9,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
-      redirect_to root_path, notice: "Article successfully created."
+      redirect_to root_path, flash: { success: 'Article successfully created.' }
     else
       render :new
     end
