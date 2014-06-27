@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_signin, only: [:new, :create]
+  skip_before_action :require_signout, only: :destroy
+
   def new
-    if signed_in?
-      redirect_to root_path
-    end
     @session = Session.new
   end
 

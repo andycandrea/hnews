@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
+  skip_before_action :require_signin
+  
   def new
-    if signed_in?
-      redirect_to root_path
-    end
     @user = User.new
   end
 
