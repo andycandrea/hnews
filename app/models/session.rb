@@ -10,7 +10,7 @@ class Session
   end
 
   def self.load_user(token)
-    User.find_by_remember_token(Session.digest(token))
+    @user = User.find_by_remember_token(digest(token))
   end
 
   def self.digest(token)
