@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe 'creating users' do
+
+  before do
+    visit '/signup'
+  end
+
   let(:params) do
     {
       name: 'picard',
@@ -12,9 +17,7 @@ describe 'creating users' do
 
   context 'when given valid parameters' do
     it 'creates a new User and signs them in' do
-      visit '/users/new'
-
-      params.each do |attr, val|
+       params.each do |attr, val|
         fill_in "user_#{attr}", with: val
       end
 
@@ -25,8 +28,7 @@ describe 'creating users' do
 
   context 'when given invalid parameters' do
     before do
-      visit '/users/new'
-      params.each do |attr, val|
+       params.each do |attr, val|
         fill_in "user_#{attr}", with: val
       end
     end

@@ -2,10 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   attr_writer :current_user
 
-  #Can the following be made more DRY?
-  before_action :require_signin
-  before_action :require_signout
-
   private
 
   def require_signin
@@ -27,11 +23,12 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= User.find_by_remember_token(User.digest(cookies[:remember_token]))
+    @current_user ||= Session.load_user(cookies[:remember_token]) 
   end
 
   def signed_in?
     current_user.present?
   end
   helper_method :signed_in?
+
 end

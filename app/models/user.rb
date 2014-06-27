@@ -13,23 +13,23 @@ class User < ActiveRecord::Base
 
 
   def generate_remember_token
-    self.class.new_remember_token.tap do |token|
-      update_column(:remember_token, self.class.digest(token))
+    new_remember_token.tap do |token|
+      update_column(:remember_token, Session.digest(token))
     end
   end
 
-  def self.new_remember_token
-    SecureRandom.urlsafe_base64
+  def destroy_remember_token
+    self.update_attribute(:remember_token, nil)
   end
 
-  def self.digest(token)
-    Digest::SHA1.hexdigest(token.to_s)
+  def new_remember_token
+    SecureRandom.urlsafe_base64
   end
 
   private
 
   def create_remember_token
-    self.remember_token = User.digest(User.new_remember_token) 
+    self.remember_token = Session.digest(new_remember_token) 
   end
 
 end

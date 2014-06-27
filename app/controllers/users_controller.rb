@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :require_signin
+  before_action :require_signout
   
   def new
     @user = User.new
@@ -21,4 +21,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
+
 end

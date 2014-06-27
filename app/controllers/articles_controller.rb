@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  before_action :require_signin, only: [:new, :create]
+
   def new
     @article = Article.new
   end

@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
-  skip_before_action :require_signin, only: [:new, :create]
-  skip_before_action :require_signout, only: :destroy
+  before_action :require_signin, only: :destroy
+  before_action :require_signout, only: [:new, :create]
 
   def new
     @session = Session.new
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
   private
 
   def sign_out
-    current_user.update_attribute(:remember_token, nil)
+    current_user.destroy_remember_token
     cookies.delete(:remember_token)
     self.current_user = nil
   end
