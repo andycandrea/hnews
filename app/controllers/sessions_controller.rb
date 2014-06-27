@@ -1,11 +1,13 @@
 class SessionsController < ApplicationController
   def new
+    @session = Session.new
   end
 
   def create
-    user = User.find_by(name: params[:session][:name])
-    if user && user.authenticate(params[:session][:password])
-      sign_in user
+    @session = Session.new(session_params)
+
+    if @session.valid?
+      sign_in @session.user
       redirect_to root_path
     else
       flash.now[:danger]= 'Invalid username or password'
@@ -16,5 +18,11 @@ class SessionsController < ApplicationController
   def destroy
     sign_out
     redirect_to root_path
+  end
+
+  private
+
+  def session_params
+    params.require(:session).permit(:name, :password)
   end
 end

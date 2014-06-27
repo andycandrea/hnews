@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     if @user.save
       sign_in @user
-      redirect_to root_path
+      redirect_to root_path, flash: { success: 'You have successfully been registered with Haxx0r News' }
     else
       render :new
     end
