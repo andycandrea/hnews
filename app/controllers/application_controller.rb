@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-#  include SessionsHelper
   
   def sign_in(user)
     cookies.permanent[:remember_token] = user.generate_remember_token
