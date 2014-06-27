@@ -12,9 +12,7 @@ class Session
   private
   
   def user_account_exists
-    self.user
-
-    unless self.user && @user.authenticate(password)
+    unless user && user.authenticate(password)
       errors.add(:base, 'Invalid username or password')
     end
   end

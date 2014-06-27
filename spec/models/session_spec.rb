@@ -9,7 +9,8 @@ describe Session do
 
     it 'should set the user instance variable to be the user with the given name and password' do
       user = create(:user)
-      session = build(:session)
+      session = build(:session, name: user.name)
+      session.name = user.name
       session.user.should == user
     end
   end

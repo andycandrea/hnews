@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
   def new
+    if signed_in?
+      redirect_to root_path
+    end
     @session = Session.new
   end
 
@@ -19,17 +22,13 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
+  private
+
   def sign_out
     current_user.update_attribute(:remember_token, nil)
     cookies.delete(:remember_token)
     self.current_user = nil
   end
-
-  def signed_in?
-    current_user.present?
-  end
-
-  private
 
   def session_params
     params.require(:session).permit(:name, :password)
