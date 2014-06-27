@@ -3,7 +3,6 @@ class Session
 
   attr_accessor :name, :password
   
-  validate :name, :password, presence: true  
   validate :user_account_exists
 
   def user

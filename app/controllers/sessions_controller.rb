@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
       sign_in @session.user
       redirect_to root_path
     else
-      flash.now[:danger]= 'Invalid username or password'
       render 'new'
     end
   end
@@ -18,6 +17,16 @@ class SessionsController < ApplicationController
   def destroy
     sign_out
     redirect_to root_path
+  end
+
+  def sign_out
+    current_user.update_attribute(:remember_token, nil)
+    cookies.delete(:remember_token)
+    self.current_user = nil
+  end
+
+  def signed_in?
+    current_user.present?
   end
 
   private
