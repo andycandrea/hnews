@@ -29,10 +29,10 @@
 <% if total_page_num > 1 %>
   <div class="page-nav col-lg-12">
     <% 1.upto(total_page_num) do |n| %>
-      <% unless find_page_num == n %>
-        <%= link_to n, articles_path(page_number: n) %>
-      <% else %>
+      <% if find_page_num == n %>
         <strong><%= n %></strong>
+      <% else %>
+        <%= link_to n, articles_path(page_number: n) %>
       <% end %>
     <% end %>
   </div>
