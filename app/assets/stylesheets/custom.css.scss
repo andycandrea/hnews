@@ -20,10 +20,18 @@ a:visited {
   font-size: 18px;
 }
 
-.article-url {
+.article-title-show {
+  font-size: 24px;
+}
+
+.article-url, .article-url-show {
   color: #ff5f19;
   font-size: 12px;
   margin-left: 0.4em;
+}
+
+.article-url-show {
+  font-size: 16px;
 }
 
 .btn {
@@ -37,6 +45,11 @@ a:visited {
   padding-top: 0.75em;
   text-align: center;
   top: 3em;  
+}
+
+.page-nav {
+  margin-top: 0.4em;
+  word-spacing: 0.4em;
 }
 
 .navbar, .navbar-brand, .navbar-default {

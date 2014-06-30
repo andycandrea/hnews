@@ -1,0 +1,14 @@
+<div>
+  <span class="article-title-show"><strong><%= @article.title %></strong></span>
+
+  <% if @article.url? %>
+    <span class="article-url-show"><%= link_to @article.url, @article.url %></span>
+  <% end %>
+
+</div>
+
+<div><%= "Posted at #{@article.created_at}" %></div>
+
+<% if @article.content? %>
+  <div><%= @article.content %></div>
+<% end %>

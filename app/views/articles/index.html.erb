@@ -14,7 +14,8 @@
       </span>
     </div>
 
-    <div class="article-date">Posted at <%= article.created_at %></div>
+    <div class="article-date col-lg-6">Posted at <%= article.created_at %></div>
+    <div class="col-lg-6"><%= link_to "View post", article_path(article) %></div>
 
     <% if article.content? %>
       <div class="article-content">
@@ -24,3 +25,12 @@
 
   </div>
 <% end %>
+
+<% if total_page_num > 1 %>
+  <div class="page-nav col-lg-12">
+    <% 1.upto(total_page_num) do |n| %>
+      <%= link_to n, articles_path(page_number: n) %>
+    <% end %>
+  </div>
+<% end %>
+
