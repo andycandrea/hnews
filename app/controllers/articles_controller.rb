@@ -41,5 +41,5 @@ class ArticlesController < ApplicationController
     @total_page_num = Article.count / Article::ARTICLES_PER_PAGE + 1
   end
 
-  helper_method :total_page_num
+  helper_method :find_page_num, :total_page_num
 end
