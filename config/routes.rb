@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   root to: 'articles#index'
 
   resources :articles, only: :index
+  resources :users, only: [:edit, :update]
+  resources :password_resets, only: [:edit, :update]
 
   match '/signup', to: 'users#new', via: 'get'
   match '/signup', to: 'users#create', via: 'post'
@@ -10,4 +12,6 @@ Rails.application.routes.draw do
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signin', to: 'sessions#create', via: 'post'
   match '/signout', to: 'sessions#destroy', via: 'delete'
+  match '/reset', to: 'password_resets#new', via: 'get'
+  match '/reset', to: 'password_resets#create', via: 'post'
 end

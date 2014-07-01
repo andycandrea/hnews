@@ -1,0 +1,4 @@
+<%= simple_form_for :password_reset, url: reset_path, method: :post do |f| %>
+  <%= f.input :email, error: false, input_html: { class: 'form-control' } %>
+  <%= f.button :submit, 'Submit' %>
+<% end %>

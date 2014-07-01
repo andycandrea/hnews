@@ -12,9 +12,16 @@ class User < ActiveRecord::Base
   has_secure_password
 
 
-  def generate_remember_token
-    new_remember_token.tap do |token|
-      update_column(:remember_token, Session.digest(token))
+  def send_password_reset
+    generate_token(:password_reset_token)
+    update_column(:password_reset_sent_at, Time.zone.now)
+    #save!
+    UserMailer.reset_password_email(self).deliver
+  end
+
+  def generate_token(column)
+    new_token.tap do |token|
+      update_column(column, Session.digest(token))
     end
   end
 
@@ -22,14 +29,14 @@ class User < ActiveRecord::Base
     self.update_attribute(:remember_token, nil)
   end
 
-  def new_remember_token
+  def new_token
     SecureRandom.urlsafe_base64
   end
 
   private
 
   def create_remember_token
-    self.remember_token = Session.digest(new_remember_token) 
+    self.remember_token = Session.digest(new_token) 
   end
 
 end
