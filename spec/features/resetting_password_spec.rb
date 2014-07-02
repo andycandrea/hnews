@@ -32,7 +32,21 @@ describe 'resetting a user password' do
       ActionMailer::Base.deliveries.last.should have_content(edit_password_reset_url(user.password_reset_token))
     end
 
-    it 'allows the user to reset their password and log in with the new password' do
+    it 'does not allow the user to reset their password if reset has expired' do
+      user = create(:user, password_reset_token: 'locopop', password_reset_sent_at: 2.hours.ago)
+      visit edit_password_reset_path(user.password_reset_token)
+
+      %w(user_password user_password_confirmation).each do |attr|
+        fill_in attr, with: user.password
+      end
+
+      click_button 'Submit'
+
+      current_path.should == reset_path
+      page.should have_content('Password reset has expired.')
+    end
+
+    it 'allows the user to reset their password and log in if reset has not expired' do
       user = create(:user, password_reset_token: 'emu', password_reset_sent_at: Time.now)
       visit edit_password_reset_path(user.password_reset_token)
 
