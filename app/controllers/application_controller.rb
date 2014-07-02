@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= Session.load_user(cookies[:remember_token]) 
+    @current_user ||= Session.load_user(RememberToken.new(cookies[:remember_token])) 
   end
 
   def signed_in?

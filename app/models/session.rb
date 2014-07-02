@@ -10,11 +10,7 @@ class Session
   end
 
   def self.load_user(token)
-    @user = User.find_by_remember_token(digest(token))
-  end
-
-  def self.digest(token)
-    Digest::SHA1.hexdigest(token.to_s)
+    @user = User.find_by_remember_token(token.digest)
   end
 
   private
