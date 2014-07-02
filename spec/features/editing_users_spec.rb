@@ -1,13 +1,11 @@
 require 'spec_helper'
 
 describe 'editing users' do
-  before do
-    created_users = create_pair(:user)
-  end
+  let(:created_users) { create_pair(:user) }
 
   context 'when not signed in' do
     it 'should redirect to the sign in page and display an error' do
-      visit '/users/1/edit'
+      visit "/users/#{created_users[0].id}/edit"
       current_path.should == signin_path
       page.should have_content('You must sign in to perform this action')
     end
@@ -25,14 +23,13 @@ describe 'editing users' do
     end
 
     it 'should redirect to the root path and display an error if wrong user' do
-      visit '/users/2/edit'
+      visit "/users/#{created_users[1].id}/edit"
       current_path.should == root_path
       page.should have_content('You do not have access to that action')
     end
 
     it 'should allow editing and update the user if correct user' do
-      visit '/users/1/edit'
-      page.should have_content(created_users[0].email)
+      visit "/users/#{created_users[0].id}/edit"
       new_password = 'wololo'
 
       %w(user_password user_password_confirmation).each do |attr|

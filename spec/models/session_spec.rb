@@ -18,8 +18,7 @@ describe Session do
   context 'when loading a user' do
     it 'should return the correct user when passed a remember_token' do
       user = create(:user)
-      remember_token = user.new_remember_token
-      user.update_column(:remember_token, Session.digest(remember_token))
+      remember_token = user.generate_token(:remember_token)
       Session.load_user(remember_token).should == user
     end
   end
