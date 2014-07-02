@@ -12,20 +12,23 @@ describe RememberToken do
       end
     end
 
-    context 'called with no arguments' do
-      subject { RememberToken.new }
-
-      it 'assigns a string to value' do
-        RememberToken.any_instance.stub(:create_token).and_return(:dog)
-        subject.value.should == 'dog'
-      end
-    end
-
     context 'called with a non string argument' do
       subject { RememberToken.new(2) }
 
       it 'sets the value to a string' do
         subject.value.should == '2'
+     end
+    end
+
+    context 'created with no arguments' do
+      subject { RememberToken.new }
+
+      before do
+        SecureRandom.stub(:urlsafe_base64) { 'doge' }
+      end
+
+      it 'sets the value to a new SecureRandom' do
+        subject.value.should == 'doge'
       end
     end
   end
@@ -40,15 +43,19 @@ describe RememberToken do
     end
   end
 
-  describe '#digest' do
-    let(:value) { 'doge' }
+  describe '#digest' do 
+    subject { RememberToken.new(value) }
 
-    context 'when called' do
-      subject { RememberToken.new(value) }
-      
-      it 'returns the digest of the value' do
-        subject.digest.should == Digest::SHA1.hexdigest(value)
-      end
+    it "returns the digest of the remember token's value" do
+      subject.digest.should == Digest::SHA1.hexdigest(value) 
+    end
+  end
+
+  describe '#value' do
+    subject { RememberToken.new(value) }
+
+    it "returns the remember token's value" do
+      subject.value.should == value
     end
   end
 end
