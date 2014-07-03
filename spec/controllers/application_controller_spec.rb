@@ -40,7 +40,7 @@ describe ApplicationController do
     end
 
     it 'returns the user with the corresponding remember_token' do
-      user = create(:user, remember_token: token.digest)
+      user = create(:user, remember_token_digest: token.digest)
       controller.instance_variable_set(:@current_remember_token, token)
 
       (controller.instance_eval { current_user }).should == user

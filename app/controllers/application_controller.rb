@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= if current_remember_token
-      User.find_by_remember_token(current_remember_token.digest) 
+      User.find_by_remember_token_digest(current_remember_token.digest) 
     end
   end
 

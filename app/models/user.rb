@@ -12,11 +12,11 @@ class User < ActiveRecord::Base
 
   def generate_remember_token
     RememberToken.new.tap do |token|
-      update_column(:remember_token, token.digest)
+      update_column(:remember_token_digest, token.digest)
     end
   end
 
   def destroy_remember_token
-    self.update_attribute(:remember_token, nil)
+    self.update_attribute(:remember_token_digest, nil)
   end
 end
