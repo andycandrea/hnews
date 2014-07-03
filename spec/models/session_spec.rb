@@ -14,13 +14,4 @@ describe Session do
       session.user.should == user
     end
   end
-
-  context 'when loading a user' do
-    it 'should return the correct user when passed a remember_token' do
-      user = create(:user)
-      token = RememberToken.new 
-      user.update_column(:remember_token, token.digest) 
-      Session.load_user(token).should == user
-    end
-  end
 end

@@ -20,17 +20,23 @@ describe RememberToken do
         subject.value.should == 'dog'
       end
     end
+
+    context 'called with a non string argument' do
+      subject { RememberToken.new(2) }
+
+      it 'sets the value to a string' do
+        subject.value.should == '2'
+      end
+    end
   end
 
-  describe '#value' do
+  describe '#to_s' do
     let(:value) { 'doge' }
 
-    context 'when called' do
-      subject { RememberToken.new(value) }
+    subject { RememberToken.new(value) }
 
-      it 'returns the value' do
-        subject.value.should == value
-      end
+    it 'returns the value as a string' do
+      subject.to_s.should == value
     end
   end
 
