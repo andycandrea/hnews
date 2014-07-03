@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def require_correct_user
     @user = User.find(params[:id])
-    unless @current_user == @user
+    unless current_user == @user
       flash[:danger] = 'You do not have access to that action'
       redirect_to root_path
     end

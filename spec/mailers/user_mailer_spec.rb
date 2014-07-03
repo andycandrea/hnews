@@ -2,9 +2,7 @@ require "spec_helper"
 
 describe UserMailer do
   let(:user) { create(:user) }
-  let(:msg_subject) { 'Haxx0r News - Reset Password' }
-  let(:sender) { ['haxx0rnews@gmail.com'] }
-
+  
   describe '#reset_password_email' do
     context 'sending the email' do
       before do
@@ -16,11 +14,11 @@ describe UserMailer do
       end
 
       it 'contains the correct subject line' do
-        ActionMailer::Base.deliveries.first.subject.should == msg_subject
+        ActionMailer::Base.deliveries.first.subject.should == 'Haxx0r News - Reset Password'
       end
 
       it 'contains the correct sender' do
-        ActionMailer::Base.deliveries.first.from.should == sender
+        ActionMailer::Base.deliveries.first.from.should == ['haxx0rnews@gmail.com'] 
       end
       
       it 'is addressed to the correct recipient' do
