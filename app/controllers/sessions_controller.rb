@@ -24,12 +24,6 @@ class SessionsController < ApplicationController
 
   private
 
-  def sign_out
-    current_user.destroy_remember_token
-    cookies.delete(:remember_token)
-    self.current_user = nil
-  end
-
   def session_params
     params.require(:session).permit(:name, :password)
   end
