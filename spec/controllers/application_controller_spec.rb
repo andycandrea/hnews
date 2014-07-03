@@ -6,8 +6,6 @@ describe ApplicationController do
     let(:user) { create(:user) }
   
     it 'sets the current_user and current_remember_token' do
-      # Let above not working? user undefined unless using line below
-      #user = create(:user)
       controller.send(:sign_in, user)
 
       assigns[:current_user].should == user
