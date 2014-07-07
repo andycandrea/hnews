@@ -9,13 +9,13 @@ describe ApplicationController do
       controller.send(:sign_in, user)
 
       assigns[:current_user].should == user
-      assigns[:current_remember_token].should be_a RememberToken
+      assigns[:current_remember_token].should be_a Token
     end
   end
 
   describe '#sign_out' do
     let(:user) { create(:user) }
-    let(:token) { RememberToken.new('droid') }
+    let(:token) { Token.new('droid') }
 
     it 'sets the current_user and current_remember_token to nil' do
       controller.instance_variable_set(:@current_user, user)
@@ -29,7 +29,7 @@ describe ApplicationController do
   end
 
   describe '#current_user' do
-    let(:token) { RememberToken.new('droid') }
+    let(:token) { Token.new('droid') }
 
     it 'returns the current user if it exists' do
       user = create(:user)
@@ -46,7 +46,7 @@ describe ApplicationController do
   end
 
   describe '#current_remember_token' do
-    let(:token) { RememberToken.new('droid') }
+    let(:token) { Token.new('droid') }
     
     it 'returns the current remember token if it exists' do
       controller.instance_variable_set(:@current_remember_token, token)
@@ -59,14 +59,14 @@ describe ApplicationController do
 
       token = controller.instance_eval { current_remember_token }
 
-      token.should be_a RememberToken
+      token.should be_a Token
       token.value.should == 'droid'
     end
   end
 
   describe '#current_remember_token=' do
     let(:user) { create(:user) }
-    let(:token) { RememberToken.new('droid') }
+    let(:token) { Token.new('droid') }
     
     it 'sets current_token to nil and deletes the remember token cookie if passed nil' do
       request.cookies['remember_token'] = token.value

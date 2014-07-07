@@ -1,4 +1,4 @@
-class RememberToken
+class Token
   attr_reader :value
 
   def initialize(val = nil)
