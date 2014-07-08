@@ -1,6 +1,4 @@
 class Article < ActiveRecord::Base
-  ARTICLES_PER_PAGE = 20
-
   before_validation :prepend_url_scheme, if: :url?
 
   validates :title, presence: true

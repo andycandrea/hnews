@@ -26,10 +26,10 @@
   </div>
 <% end %>
 
-<% if total_page_num > 1 %>
+<% if total_pages > 1 %>
   <div class="page-nav col-lg-12">
-    <% 1.upto(total_page_num) do |n| %>
-      <% if find_page_num == n %>
+    <% 1.upto(total_pages) do |n| %>
+      <% if current_page == n %>
         <strong><%= n %></strong>
       <% else %>
         <%= link_to n, articles_path(page_number: n) %>

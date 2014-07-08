@@ -5,25 +5,25 @@ class PasswordReset
 
   def user
     @user ||= if email.present?
-                User.find_by(email: email)
+                User.find_by!(email: email)
               else
-                User.find_by(password_reset_token: token)
+                User.find_by!(password_reset_token: token)
               end
   end
   
-  def deliver 
-    if user.present?
-      user.save_password_reset_token(token)
-      UserMailer.reset_password_email(user).deliver
-    else
-      errors.add(:base, 'No user exists with that email.')
-    end
+  def deliver
+    user.save_password_reset_token(token)
+    UserMailer.reset_password_email(user).deliver
+  rescue ActiveRecord::RecordNotFound
+    errors.add(:base, 'No user exists with that email.')
   end
 
   def update_user
     user.reload
-    
-    if expired?
+   
+    if user.nil?
+      errors.add(:base, 'No user specified.')
+    elsif expired?
       errors.add(:base, 'Password reset has expired.')
     elsif invalid_password?
       errors.add(:base, 'Password fields must match and be at least six characters.')
