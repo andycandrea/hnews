@@ -1,4 +1,4 @@
-class RememberToken
+class Token
   attr_reader :value
 
   def initialize(val = nil)
@@ -6,12 +6,13 @@ class RememberToken
   end
 
   def digest
-    Digest::SHA1.hexdigest(value)
+    @digest ||= Digest::SHA1.hexdigest(value)
   end
 
   def to_s
     value
   end
+  
   private
 
   def create_token

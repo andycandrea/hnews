@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def require_correct_user
+    @user = User.find(params[:id])
+    unless current_user == @user
+      flash[:danger] = 'You do not have access to that action'
+      redirect_to root_path
+    end
+  end
+
   def require_signin
     unless signed_in?
       flash[:danger] = 'You must sign in to perform this action'
@@ -19,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   def sign_in(user)
     self.current_user           = user
-    self.current_remember_token = user.generate_remember_token
+    self.current_remember_token = user.generate_token(:remember_token_digest)
   end
   
   def sign_out
@@ -37,7 +45,7 @@ class ApplicationController < ActionController::Base
 
   def current_remember_token
     @current_remember_token ||= if cookies[:remember_token].present?
-       RememberToken.new(cookies[:remember_token])
+       Token.new(cookies[:remember_token])
     end
   end
   
@@ -54,6 +62,7 @@ class ApplicationController < ActionController::Base
   def signed_in?
     current_user.present?
   end
-  helper_method :signed_in?
+
+  helper_method :signed_in?, :current_user
 
 end

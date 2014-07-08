@@ -53,7 +53,6 @@ describe 'viewing articles' do
       page.should_not have_content(new_article.url)
       page.should_not have_link('View post', href: article_path(new_article))
       
-      page.should have_link('1')
       page.should have_link('2')
       click_link('2')
 

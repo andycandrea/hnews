@@ -10,13 +10,25 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }
   has_secure_password
 
-  def generate_remember_token
-    RememberToken.new.tap do |token|
-      update_column(:remember_token_digest, token.digest)
+  def send_password_reset
+    UserMailer.reset_password_email(self).deliver
+  end
+
+  def save_password_reset_token(token)
+    update_columns(password_reset_token: token.digest, password_reset_sent_at: Time.zone.now)
+  end
+
+  def generate_token(column)
+    Token.new.tap do |token|
+      update_column(column, token.digest) 
     end
   end
 
   def destroy_remember_token
     self.update_attribute(:remember_token_digest, nil)
+  end
+
+  def destroy_password_reset_token
+    self.update_columns(password_reset_token: nil, password_reset_sent_at: nil)
   end
 end

@@ -17,3 +17,19 @@
 
 .DS_Store
 *.swp
+secrets.yml
+
+*.rbc
+capybara-*.html
+.rspec
+/public/system
+/coverage/
+/spec/tmp
+**.orig
+rerun.txt
+pickle-email-*.html
+
+config/initializers/secret_token.rb
+config/*.yml
+/vendor/bundle
+.rvmrc

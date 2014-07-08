@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  PER_PAGE = 20
+  
   before_action :require_signin, only: [:new, :create]
 
   def new
@@ -16,7 +18,7 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.limit(Article::ARTICLES_PER_PAGE).offset(find_offset).order(created_at: :desc)
+    @articles = Article.limit(PER_PAGE).offset(current_offset).order(created_at: :desc)
   end
 
   def show
@@ -29,17 +31,18 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :content, :url)
   end
 
-  def find_offset
-    (find_page_num - 1) * Article::ARTICLES_PER_PAGE
+  def current_offset
+    (current_page - 1) * PER_PAGE
   end
 
-  def find_page_num
+  def current_page
     @page_num ||= [1, params[:page_number].to_i].max
   end
+  helper_method :current_page
 
-  def total_page_num
-    @total_page_num = Article.count / Article::ARTICLES_PER_PAGE + 1
+  def total_pages
+    @total_pages ||= Article.count / PER_PAGE + 1
   end
+  helper_method :total_pages
 
-  helper_method :find_page_num, :total_page_num
 end
