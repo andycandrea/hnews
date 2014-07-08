@@ -33,3 +33,5 @@ config/initializers/secret_token.rb
 config/*.yml
 /vendor/bundle
 .rvmrc
+
+.env
