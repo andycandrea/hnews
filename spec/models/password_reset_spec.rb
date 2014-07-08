@@ -55,7 +55,7 @@ describe PasswordReset do
 
       reset.update_user
 
-      reset.errors[:base].should include('Password fields must match and be at least six characters.')
+      reset.errors[:base].should include('Passwords must match and be at least six characters long.')
     end
 
     it 'displays an error if password is less than six characters' do
@@ -64,7 +64,7 @@ describe PasswordReset do
       
       reset.update_user
 
-      reset.errors[:base].should include('Password fields must match and be at least six characters.')
+      reset.errors[:base].should include('Passwords must match and be at least six characters long.')
     end
 
     it 'destroys the password reset token and updates user password on success' do
