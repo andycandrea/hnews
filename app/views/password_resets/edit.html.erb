@@ -1,4 +1,4 @@
-<%= simple_form_for @user, url: password_reset_path(params[:id]) do |f| %>
+<%= simple_form_for @reset, url: password_reset_path(params[:id]), method: :put do |f| %>
   <%= render 'shared/form_errors', object: f.object %>
   <%= f.input :password, error: false, input_html: { class: 'form-control' } %>
   <%= f.input :password_confirmation, error: false, input_html: { class: 'form-control' } %>

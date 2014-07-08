@@ -11,9 +11,11 @@ class User < ActiveRecord::Base
   has_secure_password
 
   def send_password_reset
-    generate_token(:password_reset_token)
-    update_column(:password_reset_sent_at, Time.zone.now)
     UserMailer.reset_password_email(self).deliver
+  end
+
+  def save_password_reset_token(token)
+    update_columns(password_reset_token: token.digest, password_reset_sent_at: Time.zone.now)
   end
 
   def generate_token(column)
@@ -24,5 +26,9 @@ class User < ActiveRecord::Base
 
   def destroy_remember_token
     self.update_attribute(:remember_token_digest, nil)
+  end
+
+  def destroy_password_reset_token
+    self.update_columns(password_reset_token: nil, password_reset_sent_at: nil)
   end
 end

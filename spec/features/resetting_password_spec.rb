@@ -28,6 +28,7 @@ describe 'resetting a user password' do
 
       page.should have_content('Email sent with reset instructions')
       ActionMailer::Base.deliveries.count.should == 1
+      
       # Mail should include a link to the appropriate edit password URL
       ActionMailer::Base.deliveries.last.should have_content(edit_password_reset_url(user.password_reset_token))
     end
@@ -36,13 +37,13 @@ describe 'resetting a user password' do
       user = create(:user, password_reset_token: 'locopop', password_reset_sent_at: 2.hours.ago)
       visit edit_password_reset_path(user.password_reset_token)
 
-      %w(user_password user_password_confirmation).each do |attr|
-        fill_in attr, with: user.password
+      %w(password_reset_password password_reset_password_confirmation).each do |attr|
+        fill_in attr, with: new_password
       end
 
       click_button 'Submit'
 
-      current_path.should == reset_path
+      current_path.should == '/password_resets/locopop'
       page.should have_content('Password reset has expired.')
     end
 
@@ -50,7 +51,7 @@ describe 'resetting a user password' do
       user = create(:user, password_reset_token: 'emu', password_reset_sent_at: Time.now)
       visit edit_password_reset_path(user.password_reset_token)
 
-      %w(user_password user_password_confirmation).each do |attr|
+      %w(password_reset_password password_reset_password_confirmation).each do |attr|
         fill_in attr, with: new_password
       end
       

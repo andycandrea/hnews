@@ -6,6 +6,7 @@ describe UserMailer do
   describe '#reset_password_email' do
     context 'sending the email' do
       before do
+        user.save_password_reset_token(Token.new)
         user.send_password_reset
       end
 
