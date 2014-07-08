@@ -20,19 +20,15 @@ class PasswordReset
 
   def update_user
     user.reload
-   
-    if user.nil?
-      errors.add(:base, 'No user specified.')
-    elsif expired?
-      errors.add(:base, 'Password reset has expired.')
-    elsif invalid_password?
-      errors.add(:base, 'Password fields must match and be at least six characters.')
-    else 
-      user.destroy_password_reset_token
-      user.update_attributes(password: password, password_confirmation: password_confirmation)
-    end
 
-    return errors.none?
+    return false if user.nil? || expired?
+
+    if user.update_attributes(password: password, password_confirmation: password_confirmation)
+      user.destroy_password_reset_token
+    else
+      errors.add(:base, 'Passwords must match and be at least six characters long.')
+      return false
+    end
   end
   
   private
@@ -42,10 +38,8 @@ class PasswordReset
   end
 
   def expired?
-    user.password_reset_sent_at < 2.hours.ago
-  end
-
-  def invalid_password?
-    !(password == password_confirmation && password.length >= 6)
+    if user.password_reset_sent_at < 2.hours.ago
+      errors.add(:base, 'Password reset has expired.')
+    end
   end
 end
