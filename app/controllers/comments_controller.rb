@@ -7,6 +7,8 @@ class CommentsController < ApplicationController
 
     if @comment.save
       redirect_to @article, flash: { success: 'Comment successfully added.' }
+    else
+      render 'articles/show'
     end
   end
 

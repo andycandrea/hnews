@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :comment do
-    body "MyText"
-    user_id 1
+    body 'this is Major Tom to ground control'
   end
 end
