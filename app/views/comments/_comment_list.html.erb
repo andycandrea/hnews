@@ -1,0 +1,8 @@
+<% object.comments.each do |comment| %>
+  <div class="comment">
+    <div><%= comment.body %></div>
+    <div>
+      Posted by <%= User.find(comment.user_id).name %> at <%= comment.created_at %>
+    </div>
+  </div>
+<% end %>

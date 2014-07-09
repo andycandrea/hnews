@@ -1,4 +1,7 @@
 class Article < ActiveRecord::Base
+  belongs_to :user
+  has_many :comments
+  
   before_validation :prepend_url_scheme, if: :url?
 
   validates :title, presence: true

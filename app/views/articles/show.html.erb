@@ -12,3 +12,19 @@
 <% if @article.content? %>
   <div><%= @article.content %></div>
 <% end %>
+
+<% if signed_in? %>
+  <%= simple_form_for @comment, url: article_comments_path(@article.id), method: :post do |f| %>
+    <%= render 'shared/form_errors', object: f.object %>
+    <%= f.input :body, error: false, input_html: { class: 'form-control' } %>
+    <%= f.button :submit, 'Submit' %>
+  <% end %>
+<% end %>
+
+<div class="comments">
+  <% if @article.comments.any? %>
+    <%= render 'comments/comment_list', object: @article %>
+  <% else %>
+    <h3>No comments yet!</h3>
+  <% end %>
+</div>
