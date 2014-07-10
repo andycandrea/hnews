@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   resources :articles, only: [:index, :show] do
     resources :comments, only: :create
   end
+
+  resources :comments, only: [] do
+    resources :comments, only: [:create]
+  end
   
   resources :users, only: [:edit, :update]
   resources :password_resets, only: [:edit, :update]

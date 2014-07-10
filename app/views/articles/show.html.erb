@@ -1,13 +1,22 @@
 <div>
-  <span class="article-title-show"><strong><%= @article.title %></strong></span>
+  <span class="article-title-show"><strong>
+    <%= link_to @article.title, @article.url? ? @article.url : article_path(@article) %>
+  </strong></span>
 
-  <% if @article.url? %>
-    <span class="article-url-show"><%= link_to @article.url, @article.url %></span>
-  <% end %>
+  
+  <span class="article-url-show">
+    <% if @article.url? %>
+      <%= link_to "(#{URI(@article.url).host})", "http://#{URI(@article.url).host}" %>
+    <% else %>
+      (text only)
+    <% end %>
+  </span>
 
 </div>
 
-<div><%= "Posted at #{@article.created_at}" %></div>
+<div>
+  Posted by <strong><%= User.find(@article.user_id).name %></strong> at <%= @article.created_at %>
+</div>
 
 <% if @article.content? %>
   <div><%= @article.content %></div>
@@ -16,15 +25,15 @@
 <% if signed_in? %>
   <%= simple_form_for @comment, url: article_comments_path(@article.id), method: :post do |f| %>
     <%= render 'shared/form_errors', object: f.object %>
-    <%= f.input :body, error: false, input_html: { class: 'form-control' } %>
+    <%= f.input :body, label: false, error: false, input_html: { class: 'form-control' } %>
     <%= f.button :submit, 'Submit' %>
   <% end %>
 <% end %>
 
 <div class="comments">
   <% if @article.comments.any? %>
-    <%= render 'comments/comment_list', object: @article %>
+    <%= render @article.comments %>
   <% else %>
-    <h3>No comments yet!</h3>
+    <h4>No comments yet!</h4>
   <% end %>
 </div>

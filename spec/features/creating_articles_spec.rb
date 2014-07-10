@@ -64,25 +64,28 @@ describe "creating articles" do
   end
 
   context "when given valid parameters" do 
+    let (:article_title) { 'Much title, wow' }
+    let (:article_url) { 'http://dogecoin.com' }
+    let (:article_content) { 'Such success, much test, very wow.' }
 
     before do
-      fill_in "article_title", with: "Much title, wow" 
+      fill_in "article_title", with: article_title 
     end
 
     it "creates a new Article with URL" do
-      fill_in "article_url", with: "http://dogecoin.com/"
+      fill_in "article_url", with: article_url
       click_button 'Submit'
      
-      page.should have_content('Much title, wow')
-      page.should have_content('http://dogecoin.com')
+      page.should have_content(article_title)
+      page.should have_link("(#{URI(article_url).host})")
     end
 
     it "creates a new Article with content" do
-      fill_in "article_content", with: "Such success, much test, wow."
+      fill_in "article_content", with: article_content 
       click_button 'Submit'
 
-      page.should have_content('Much title, wow')
-      page.should have_content('Such success, much test, wow.')
+      page.should have_content(article_title)
+      page.should have_content(article_content)
     end
   end
 

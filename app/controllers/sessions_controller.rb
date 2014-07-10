@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_before_action :store_redirect_url
   before_action :require_signin, only: :destroy
   before_action :require_signout, only: [:new, :create]
 
