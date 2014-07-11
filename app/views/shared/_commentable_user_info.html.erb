@@ -1,3 +1,3 @@
 <%= content_tag :div, class: div_class do -%>
-  Posted by <strong><%= resource.user.try(:name) || 'Anon' %></strong> at <%= resource.created_at %>
+  Posted by <strong><%= resource.user.try(:name) || 'Anon' %></strong> <%= format_date(resource.created_at) %>
 <% end -%>
