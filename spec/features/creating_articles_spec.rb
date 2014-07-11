@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "creating articles" do
+describe 'creating articles' do
 
   before do
     user = create(:user)
@@ -14,7 +14,7 @@ describe "creating articles" do
     visit '/submit'
   end
 
-  context "when given invalid parameters" do
+  context 'when given invalid parameters' do
     let(:params) do
       {
         title: '',
@@ -31,16 +31,16 @@ describe "creating articles" do
       click_button 'Submit'
     end
 
-    it "displays errors on title" do
+    it 'displays errors on title' do
       page.should have_content("Title can't be blank")
     end
 
-    it "displays errors on content and url" do
+    it 'displays errors on content and url' do
       page.should have_content('URL or content must have a value.')
     end
   end
 
-  context "When given too many parameters" do
+  context 'when given too many parameters' do
     let(:params) do
       {
         title: 'Wow. Such Read',
@@ -57,31 +57,31 @@ describe "creating articles" do
       click_button 'Submit'
     end
 
-    it "displays an error when passed a URL and content" do
+    it 'displays an error when passed a URL and content' do
       page.should have_content('Article cannot contain both a URL and text content.')
     end
 
   end
 
-  context "when given valid parameters" do 
+  context 'when given valid parameters' do 
     let (:article_title) { 'Much title, wow' }
-    let (:article_url) { 'http://dogecoin.com' }
+    let (:article_url) { 'http://dogecoin.com/wow.wow' }
     let (:article_content) { 'Such success, much test, very wow.' }
 
     before do
-      fill_in "article_title", with: article_title 
+      fill_in 'article_title', with: article_title 
     end
 
-    it "creates a new Article with URL" do
-      fill_in "article_url", with: article_url
+    it 'creates a new Article with URL' do
+      fill_in 'article_url', with: article_url
       click_button 'Submit'
      
       page.should have_content(article_title)
-      page.should have_link("(#{URI(article_url).host})")
+      page.should have_link('(dogecoin.com)')
     end
 
-    it "creates a new Article with content" do
-      fill_in "article_content", with: article_content 
+    it 'creates a new Article with content' do
+      fill_in 'article_content', with: article_content 
       click_button 'Submit'
 
       page.should have_content(article_title)
