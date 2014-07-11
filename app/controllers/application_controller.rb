@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   attr_writer :current_user
 
+  before_action :store_redirect_url
+
   private
 
   def require_correct_user
@@ -42,6 +44,7 @@ class ApplicationController < ActionController::Base
       User.find_by(remember_token_digest: current_remember_token.digest) 
     end
   end
+  helper_method :current_user
 
   def current_remember_token
     @current_remember_token ||= if cookies[:remember_token].present?
@@ -62,7 +65,15 @@ class ApplicationController < ActionController::Base
   def signed_in?
     current_user.present?
   end
+  helper_method :signed_in?
 
-  helper_method :signed_in?, :current_user
+  def store_redirect_url
+    if request.get? && !request.xhr?
+      session[:redirect_url] = request.original_url
+    end
+  end
 
+  def redirect_url
+    session[:redirect_url] || root_path
+  end
 end

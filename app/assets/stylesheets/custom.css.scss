@@ -8,10 +8,6 @@ a:visited {
   color: #FF9465;
 }
 
-.article-date {
-  font-size: 12px;
-}
-
 .article-div {
   margin-bottom: 0.6em;
 }
@@ -28,6 +24,7 @@ a:visited {
   color: #ff5f19;
   font-size: 12px;
   margin-left: 0.4em;
+  word-wrap: break-word;
 }
 
 .article-url-show {
@@ -35,7 +32,27 @@ a:visited {
 }
 
 .btn {
+  background-color: #009aba;
+  color: white;
   margin-top: 0.6em;
+}
+
+.comment {
+  border-color: #ff5f19;
+  border-style: solid;
+  border-width: 0.1em;
+  margin: 0.25em;
+  margin-top: 1em;
+  padding-left: 2em;
+  word-wrap: break-word;
+}
+
+.comments {
+  margin-top: 1em;
+}
+
+.even-comment {
+  background-color: #FFE1D4;
 }
 
 .footer {
@@ -58,4 +75,20 @@ a:visited {
 
 .navbar-brand, ul > li > a {
   color: white !important;
+}
+
+.odd-comment {
+  background-color: white;
+}
+
+.posted-by {
+  font-size: 12px;
+}
+
+.reply-form {
+  display: none
+}
+
+.simple_form {
+  margin-top: 1em;
 }

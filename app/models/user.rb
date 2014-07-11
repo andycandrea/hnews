@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_many :articles
+  has_many :comments
+
   before_save { self.email = email.downcase if email? }
 
   #Temporary regex - will eventually validate by sending an email

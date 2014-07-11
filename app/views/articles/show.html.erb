@@ -1,14 +1,21 @@
-<div>
-  <span class="article-title-show"><strong><%= @article.title %></strong></span>
+<%= render partial: 'shared/article_info', locals: { class_substring: '-show', article: @article } %>
 
-  <% if @article.url? %>
-    <span class="article-url-show"><%= link_to @article.url, @article.url %></span>
+<%= render partial: 'shared/commentable_user_info', locals: { div_class: '', resource: @article } %>
+
+<%= render partial: 'shared/article_content', locals: { article: @article } %>
+
+<% if signed_in? %>
+  <%= simple_form_for comment, url: article_comments_path(@article.id), method: :post do |f| %>
+    <%= render 'shared/form_errors', object: f.object %>
+    <%= f.input :body, label: false, error: false, input_html: { class: 'form-control' } %>
+    <%= f.button :submit, 'Submit' %>
   <% end %>
-
-</div>
-
-<div><%= "Posted at #{@article.created_at}" %></div>
-
-<% if @article.content? %>
-  <div><%= @article.content %></div>
 <% end %>
+
+<div class="comments">
+  <% if @article.comments.any? %>
+    <%= render @article.comments %>
+  <% else %>
+    <h4>No comments yet!</h4>
+  <% end %>
+</div>

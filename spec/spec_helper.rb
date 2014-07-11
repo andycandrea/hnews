@@ -15,6 +15,9 @@ require 'factory_girl_rails'
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
+# Include integration macros
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
@@ -55,4 +58,5 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include FactoryGirl::Syntax::Methods
+  config.include IntegrationMacros, type: :feature
 end

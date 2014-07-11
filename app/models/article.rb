@@ -1,9 +1,16 @@
 class Article < ActiveRecord::Base
+  belongs_to :user
+  has_many :comments, as: :commentable
+  
   before_validation :prepend_url_scheme, if: :url?
 
-  validates :title, presence: true
+  validates :title, :user, presence: true
   validates :url, full_url: true, if: :url?
   validate :single_article_type
+
+  def url_host
+    @url_host ||= URI(url).host
+  end
 
   private
 

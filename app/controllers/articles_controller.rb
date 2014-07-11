@@ -8,9 +8,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
-
-    if @article.save
+    if article.save
       redirect_to root_path, flash: { success: 'Article successfully created.' }
     else
       render :new
@@ -31,6 +29,15 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :content, :url)
   end
 
+  def article
+    @article = current_user.articles.build(article_params)
+  end
+
+  def comment
+    @comment = Comment.new
+  end
+  helper_method :comment
+
   def current_offset
     (current_page - 1) * PER_PAGE
   end
@@ -44,5 +51,4 @@ class ArticlesController < ApplicationController
     @total_pages ||= Article.count / PER_PAGE + 1
   end
   helper_method :total_pages
-
 end

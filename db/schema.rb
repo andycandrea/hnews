@@ -11,23 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140703174122) do
+ActiveRecord::Schema.define(version: 20140711140409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "articles", force: true do |t|
-    t.string   "title"
+    t.string   "title",      null: false
     t.text     "content"
     t.text     "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id",    null: false
+  end
+
+  create_table "comments", force: true do |t|
+    t.text     "body",             null: false
+    t.integer  "user_id",          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "commentable_id",   null: false
+    t.string   "commentable_type", null: false
   end
 
   create_table "users", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password_digest"
+    t.string   "name",                   null: false
+    t.string   "email",                  null: false
+    t.string   "password_digest",        null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_token_digest"
@@ -35,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140703174122) do
     t.datetime "password_reset_sent_at"
   end
 
-  add_index "users", ["remember_token_digest"], name: "index_users_on_remember_token_digest", using: :btree
+  add_index "users", ["email", "name"], name: "index_users_on_email_and_name", unique: true, using: :btree
+  add_index "users", ["remember_token_digest"], name: "index_users_on_remember_token_digest", unique: true, using: :btree
 
 end
