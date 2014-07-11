@@ -1,6 +1,6 @@
 module ApplicationHelper
   def format_date(date)
-    "#{distance_of_time_in_words(date, Time.now, options = {})} ago"
+    "#{time_ago_in_words(date, include_seconds: true)} ago"
   end
   
   def url_for_article(article)
