@@ -1,12 +1,8 @@
-<div class="comment">
+<div class="comment <%= cycle('odd-comment', 'even-comment') %>">
   <div><%= comment.body %></div>
   <div class="posted-by">
     Posted by <strong>
-      <% if comment.user.present? %>
-        <%= comment.user.name %>
-      <% else %>
-        Anonymous User
-      <% end %>
+      <%= comment.user.try(:name) || 'Anonymous User' %>
     </strong> at <%= comment.created_at %>
   </div>
   

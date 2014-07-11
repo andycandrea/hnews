@@ -13,13 +13,7 @@ describe 'editing users' do
 
   context 'when signed in' do
     before do
-      visit '/signin'
-
-      %w(name password).each do |attr|
-        fill_in "session_#{attr}", with: created_users[0].send(attr)
-      end
-
-      click_button 'Submit'
+      sign_in(created_users[0])
     end
 
     it 'should redirect to the root path and display an error if wrong user' do

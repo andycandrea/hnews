@@ -74,9 +74,4 @@ class ApplicationController < ActionController::Base
   def redirect_url
     session[:redirect_url] || root_path
   end
-
-  def url_for_article(article)
-    article.url? ? article.url : article_path(article)
-  end
-  helper_method :url_for_article
 end

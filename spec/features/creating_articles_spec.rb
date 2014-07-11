@@ -3,14 +3,7 @@ require 'spec_helper'
 describe 'creating articles' do
 
   before do
-    user = create(:user)
-    visit '/signin'
-
-    %w(name password).each do |attr|
-      fill_in "session_#{attr}", with: user.send(attr)
-    end
-
-    click_button 'Submit'
+    sign_in
     visit '/submit'
   end
 

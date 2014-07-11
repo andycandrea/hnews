@@ -1,38 +1,12 @@
 <% @articles.each do |article| %>
   <div class="article-div">
-    <div>
-      <span class="article-title">
-        <strong>
-          <%= link_to article.title, url_for_article(article) %>
-        </strong>
-      </span>
-
-      <span class="article-url">
-        <% if article.url? %>
-          <%= link_to "(#{article.url_host})", "http://#{article.url_host}" %>
-        <% else %>
-          <span>(text only)</span>
-        <% end %>
-      </span>
-    </div>
-
-    <div class="posted-by col-lg-6">
-      Posted by <strong>
-        <% if article.user.present? %>
-          <%= article.user.name %>
-        <% else %>
-          Anonymous User
-        <% end %>
-      </strong> at <%= article.created_at %>
-    </div>
+    <%= render partial: 'shared/article_info', locals: { class_substring: '', article: article } %>
+    
+    <%= render partial: 'shared/commentable_user_info', locals: { div_class: 'posted-by col-lg-6', resource: article } %>
 
     <div class="col-lg-6"><%= link_to "View post", article_path(article) %></div>
 
-    <% if article.content? %>
-      <div class="article-content">
-        <%= article.content %>
-      </div>
-    <% end %>
+    <%= render partial: 'shared/article_content', locals: { article: article } %>
 
   </div>
 <% end %>

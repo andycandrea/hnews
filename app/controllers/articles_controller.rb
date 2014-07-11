@@ -21,7 +21,6 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    comment 
   end
 
   private
@@ -36,9 +35,7 @@ class ArticlesController < ApplicationController
   helper_method :article
 
   def comment
-    if current_user
-      @comment ||= current_user.comments.build()
-    end
+    @comment = Comment.new
   end
   helper_method :comment
 

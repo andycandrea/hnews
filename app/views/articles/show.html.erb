@@ -1,32 +1,8 @@
-<div>
-  <span class="article-title-show"><strong>
-    <%= link_to article.title, url_for_article(article) %>
-  </strong></span>
+<%= render partial: 'shared/article_info', locals: { class_substring: '-show', article: article } %>
 
-  
-  <span class="article-url-show">
-    <% if article.url? %>
-      <%= link_to "(#{article.url_host})", "http://#{article.url_host}" %>
-    <% else %>
-      (text only)
-    <% end %>
-  </span>
+<%= render partial: 'shared/commentable_user_info', locals: { div_class: '', resource: article } %>
 
-</div>
-
-<div>
-  Posted by <strong>
-    <% if article.user.present? %>
-      <%= article.user.name %>
-    <% else %>
-      Anonymous User
-    <% end %>
-  </strong> at <%= article.created_at %>
-</div>
-
-<% if article.content? %>
-  <div><%= article.content %></div>
-<% end %>
+<%= render partial: 'shared/article_content', locals: { article: article } %>
 
 <% if signed_in? %>
   <%= simple_form_for comment, url: article_comments_path(article.id), method: :post do |f| %>

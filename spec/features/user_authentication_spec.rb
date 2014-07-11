@@ -1,23 +1,14 @@
 require 'spec_helper'
 
 describe 'authenticating users' do
-
-  before do
-    visit '/signin'
-  end
-
   let(:user) { create(:user) }
 
   context 'with invalid information' do
     it 'should not allow non-existent users to log in' do
       bad_user = build(:user)
 
-      %w(name password).each do |attr|
-        fill_in "session_#{attr}", with: bad_user.send(attr)
-      end
+      sign_in(bad_user)
 
-      click_button 'Submit'
-      
       page.should have_content('Invalid username or password')
       page.should have_link('Sign in')
       current_path.should == signin_path
@@ -27,11 +18,7 @@ describe 'authenticating users' do
       bad_user = user
       bad_user.password = 'hi'
 
-      %w(name password).each do |attr|
-        fill_in "session_#{attr}", with: bad_user.send(attr)
-      end
-
-      click_button 'Submit'
+      sign_in(bad_user)
 
       page.should have_content('Invalid username or password')
       page.should have_link('Sign in')
@@ -41,11 +28,7 @@ describe 'authenticating users' do
 
   context 'with valid information' do
     before do
-      %w(name password).each do |attr|
-        fill_in "session_#{attr}", with: user.send(attr)
-      end
-
-      click_button 'Submit'
+      sign_in(user)
     end
 
     it 'should allow the user to log in' do
@@ -58,7 +41,7 @@ describe 'authenticating users' do
       page.should have_link('Sign in')
     end
 
-    it 'should not automatically redirect a signed-in user away from the signup and signin pages' do
+    it 'should automatically redirect a signed-in user away from the signup and signin pages' do
       visit '/signin'
       current_path.should == root_path
       visit '/signup'

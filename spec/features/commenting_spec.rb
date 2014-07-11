@@ -13,13 +13,7 @@ describe 'commenting' do
 
   context 'when signed in' do
     before do
-      visit '/signin'
-      %w(name password).each do |attr|
-        fill_in "session_#{attr}", with: user.send(attr)
-      end
-
-      click_button 'Submit'
-
+      sign_in(user)
       visit "/articles/#{article.id}"
     end
 
