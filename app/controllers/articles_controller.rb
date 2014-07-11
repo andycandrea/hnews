@@ -30,12 +30,11 @@ class ArticlesController < ApplicationController
   end
 
   def article
-    @article ||= current_user.articles.build(article_params)
+    @article = current_user.articles.build(article_params)
   end
-  helper_method :article
 
   def comment
-    @comment ||= Comment.new
+    @comment = Comment.new
   end
   helper_method :comment
 

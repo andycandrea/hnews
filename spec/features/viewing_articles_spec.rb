@@ -25,7 +25,6 @@ describe 'viewing articles' do
 
       current_path.should == article_path(old_article)
       page.should have_content(old_article.title)
-      page.should have_content(old_article.created_at)
       page.should have_link('(www.much.url)')
       page.should have_content(user.name)
       page.should have_content('No comments yet!')
@@ -46,7 +45,6 @@ describe 'viewing articles' do
 
       page.should have_content(created_articles[0].title)
       page.should have_content(created_articles[0].content)
-      page.should have_content(created_articles[0].created_at)
       page.should have_content(user.name)
       page.should have_link('View post', href: article_path(created_articles[0]))
 
@@ -66,7 +64,6 @@ describe 'viewing articles' do
 
       page.should have_content(old_article.title)
       page.should have_link('(www.much.url)')
-      page.should have_content(old_article.created_at)
       page.should have_content(user.name)
       page.should have_link('View post', href: article_path(old_article))
 
