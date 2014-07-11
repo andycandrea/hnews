@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
   end
 
   def commentable
-    @commentable ||= begin
+    @commentable = begin
       params.each do |name, value|
         if name =~ /(.+)_id$/ && valid_commentable_type?($1)
           return $1.classify.constantize.find(value)

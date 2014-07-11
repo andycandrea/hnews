@@ -68,7 +68,9 @@ class ApplicationController < ActionController::Base
   helper_method :signed_in?
 
   def store_redirect_url
-    session[:redirect_url] = request.original_url
+    if request.get? && !request.xhr?
+      session[:redirect_url] = request.original_url
+    end
   end
 
   def redirect_url

@@ -35,7 +35,7 @@ class ArticlesController < ApplicationController
   helper_method :article
 
   def comment
-    @comment = Comment.new
+    @comment ||= Comment.new
   end
   helper_method :comment
 
