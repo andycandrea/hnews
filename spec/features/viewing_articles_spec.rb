@@ -11,7 +11,7 @@ describe 'viewing articles' do
     page.should have_content(old_article.title)
     page.should have_content(new_article.title)
     page.should have_content(user.name)
-    page.should have_link("(#{URI(old_article.url).host})")
+    page.should have_link('(www.much.url)')
   end
   
   it 'should be sorted by descending time of creation' do
@@ -26,7 +26,7 @@ describe 'viewing articles' do
       current_path.should == article_path(old_article)
       page.should have_content(old_article.title)
       page.should have_content(old_article.created_at)
-      page.should have_link("(#{URI(old_article.url).host})")
+      page.should have_link('(www.much.url)')
       page.should have_content(user.name)
       page.should have_content('No comments yet!')
     end
@@ -51,11 +51,10 @@ describe 'viewing articles' do
       page.should have_link('View post', href: article_path(created_articles[0]))
 
       page.should_not have_content(old_article.title)
-      page.should_not have_link("(#{URI(old_article.url).host})")
+      page.should_not have_link('(www.much.url)')
       page.should_not have_link('View post', href: article_path(old_article))
 
       page.should_not have_content(new_article.title)
-      page.should_not have_link("(#{URI(new_article.url).host})")
       page.should_not have_link('View post', href: article_path(new_article))
       
       page.should have_link('2')
@@ -66,13 +65,12 @@ describe 'viewing articles' do
       page.should_not have_link('View post', href: article_path(created_articles[0]))
 
       page.should have_content(old_article.title)
-      page.should have_link("(#{URI(old_article.url).host})")
+      page.should have_link('(www.much.url)')
       page.should have_content(old_article.created_at)
       page.should have_content(user.name)
       page.should have_link('View post', href: article_path(old_article))
 
       page.should have_content(new_article.title)
-      page.should have_link("(#{URI(new_article.url).host})")
       page.should have_content(new_article.created_at)
       page.should have_link('View post', href: article_path(new_article))
     end

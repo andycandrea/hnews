@@ -37,7 +37,7 @@ describe 'commenting' do
       page.should have_content('da comment')
     end
 
-    context 'commenting on comments' do
+    context 'on comments' do
       it "display the new comment and add it to the first comment's comments" do
         fill_in 'comment_body', with: 'yo dawg'
         click_button 'Submit'
@@ -46,11 +46,9 @@ describe 'commenting' do
           click_button 'Reply'
           fill_in 'comment[body]', with: 'i heard you like comments'
           click_button 'Submit'
+
+          page.should have_content('i heard you like comments')
         end
-
-        page.should have_content('i heard you like comments');
-
-        article.comments.last.comments.last.body.should == 'i heard you like comments'
       end
     end
   end

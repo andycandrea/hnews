@@ -3,13 +3,14 @@
 FactoryGirl.define do
   factory :comment do
     body 'this is Major Tom to ground control'
-  
+    user
+
     trait :on_article do
-      commentable_type 'Article'
+      commentable_type article
     end
 
     trait :on_comment do
-      commentable_type 'Comment'
+      commentable_type comment
     end
   end
 end

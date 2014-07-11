@@ -1,12 +1,12 @@
 <div>
   <span class="article-title-show"><strong>
-    <%= link_to @article.title, @article.url? ? @article.url : article_path(@article) %>
+    <%= link_to article.title, url_for_article(article) %>
   </strong></span>
 
   
   <span class="article-url-show">
-    <% if @article.url? %>
-      <%= link_to "(#{URI(@article.url).host})", "http://#{URI(@article.url).host}" %>
+    <% if article.url? %>
+      <%= link_to "(#{article.url_host})", "http://#{article.url_host}" %>
     <% else %>
       (text only)
     <% end %>
@@ -15,15 +15,21 @@
 </div>
 
 <div>
-  Posted by <strong><%= User.find(@article.user_id).name %></strong> at <%= @article.created_at %>
+  Posted by <strong>
+    <% if article.user.present? %>
+      <%= article.user.name %>
+    <% else %>
+      Anonymous User
+    <% end %>
+  </strong> at <%= article.created_at %>
 </div>
 
-<% if @article.content? %>
-  <div><%= @article.content %></div>
+<% if article.content? %>
+  <div><%= article.content %></div>
 <% end %>
 
 <% if signed_in? %>
-  <%= simple_form_for @comment, url: article_comments_path(@article.id), method: :post do |f| %>
+  <%= simple_form_for comment, url: article_comments_path(article.id), method: :post do |f| %>
     <%= render 'shared/form_errors', object: f.object %>
     <%= f.input :body, label: false, error: false, input_html: { class: 'form-control' } %>
     <%= f.button :submit, 'Submit' %>
@@ -31,8 +37,8 @@
 <% end %>
 
 <div class="comments">
-  <% if @article.comments.any? %>
-    <%= render @article.comments %>
+  <% if article.comments.any? %>
+    <%= render article.comments %>
   <% else %>
     <h4>No comments yet!</h4>
   <% end %>

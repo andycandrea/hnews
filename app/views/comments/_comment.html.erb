@@ -1,9 +1,15 @@
 <div class="comment">
   <div><%= comment.body %></div>
   <div class="posted-by">
-    Posted by <strong><%= User.find(comment.user_id).name %></strong> at <%= comment.created_at %>
+    Posted by <strong>
+      <% if comment.user.present? %>
+        <%= comment.user.name %>
+      <% else %>
+        Anonymous User
+      <% end %>
+    </strong> at <%= comment.created_at %>
   </div>
-
+  
   <div class="reply-div">
     <input type="button" class="reply-button btn" value="Reply">
   </div>

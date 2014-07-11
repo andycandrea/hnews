@@ -1,12 +1,9 @@
 class CommentsController < ApplicationController
   skip_before_action :store_redirect_url
   before_action :require_signin
-
+  
   def create
-    @commentable = find_commentable
-    @comment = current_user.comments.build(comment_params.merge(commentable: @commentable)) 
-
-    if @comment.save
+    if comment.save
       flash[:success] = 'Comment successfully added.'
     else
       flash[:danger] = 'Comment cannot be blank.'
@@ -21,16 +18,23 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:body)
   end
 
-  def valid_commentable_type(type)
+  def valid_commentable_type?(type)
     type.in? %w[comment article]
   end
 
-  def find_commentable
-    params.each do |name, value|
-      if name =~ /(.+)_id$/ && valid_commentable_type($1)
-        return $1.classify.constantize.find(value)
+  def comment
+    @comment ||= current_user.comments.build(comment_params.merge(commentable: commentable))
+  end
+
+  def commentable
+    @commentable ||= begin
+      params.each do |name, value|
+        if name =~ /(.+)_id$/ && valid_commentable_type?($1)
+          return $1.classify.constantize.find(value)
+        end
       end
+
+      nil
     end
-    nil
   end
 end

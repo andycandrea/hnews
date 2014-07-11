@@ -3,13 +3,13 @@
     <div>
       <span class="article-title">
         <strong>
-          <%= link_to article.title, article.url? ? article.url : article_path(article) %>
+          <%= link_to article.title, url_for_article(article) %>
         </strong>
       </span>
 
       <span class="article-url">
         <% if article.url? %>
-          <%= link_to "(#{URI(article.url).host})", "http://#{URI(article.url).host}" %>
+          <%= link_to "(#{article.url_host})", "http://#{article.url_host}" %>
         <% else %>
           <span>(text only)</span>
         <% end %>
@@ -17,7 +17,13 @@
     </div>
 
     <div class="posted-by col-lg-6">
-      Posted by <strong><%= User.find(article.user_id).name %></strong> at <%= article.created_at %>
+      Posted by <strong>
+        <% if article.user.present? %>
+          <%= article.user.name %>
+        <% else %>
+          Anonymous User
+        <% end %>
+      </strong> at <%= article.created_at %>
     </div>
 
     <div class="col-lg-6"><%= link_to "View post", article_path(article) %></div>
