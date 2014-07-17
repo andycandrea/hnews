@@ -68,7 +68,6 @@ describe 'viewing articles' do
       page.should have_link('View post', href: article_path(old_article))
 
       page.should have_content(new_article.title)
-      page.should have_content(new_article.created_at)
       page.should have_link('View post', href: article_path(new_article))
     end
   end
