@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :articles
   has_many :comments
+  has_many :votes
 
   before_save { self.email = email.downcase if email? }
 
