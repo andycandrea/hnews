@@ -1,0 +1,17 @@
+<% if Vote.where(user_id: current_user.id, votable_type: object.class, votable_id: object.id).first %>
+  <div>
+    <%= Vote.where(user_id: current_user.id, votable_type: object.class, votable_id: object.id).first.is_up %>
+  </div>
+<% end %>
+
+<div>
+  <%= "The score is: #{Vote.where(votable_type: object.class, votable_id: object.id, is_up: true).count - Vote.where(votable_type: object.class, votable_id: object.id, is_up: false).count}" %>
+</div>
+
+<%= simple_form_for Vote.new, url: upvote_article_vote_path(object.id,1) do |f| %>
+  <%= f.button :submit, 'Upvote' %>
+<% end %>
+
+<%= simple_form_for Vote.new, url: downvote_article_vote_path(object.id,1) do |f| %>
+  <%= f.button :submit, 'Downvote' %>
+<% end %>

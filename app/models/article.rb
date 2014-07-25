@@ -1,7 +1,8 @@
 class Article < ActiveRecord::Base
   belongs_to :user
   has_many :comments, as: :commentable
-  
+  has_many :votes, as: :votable
+
   before_validation :prepend_url_scheme, if: :url?
 
   validates :title, :user, presence: true

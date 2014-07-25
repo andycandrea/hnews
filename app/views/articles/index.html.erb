@@ -8,6 +8,8 @@
 
     <%= render partial: 'shared/article_content', locals: { article: article } %>
 
+    <%= render 'votes/vote', object: article %>
+
   </div>
 <% end %>
 
