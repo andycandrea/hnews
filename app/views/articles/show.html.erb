@@ -4,6 +4,8 @@
 
 <%= render partial: 'shared/article_content', locals: { article: @article } %>
 
+<%= render 'votes/vote', object: @article %>
+
 <% if signed_in? %>
   <%= simple_form_for comment, url: article_comments_path(@article.id), method: :post do |f| %>
     <%= render 'shared/form_errors', object: f.object %>
