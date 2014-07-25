@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :vote do
-    is_up false
+    is_up true 
+    user
   end
 end

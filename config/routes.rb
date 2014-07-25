@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :articles, only: [:index, :show] do
     resources :comments, only: :create
-    resources :votes, only: :create do
+    resources :votes, only: [] do
       post 'upvote', on: :member
       post 'downvote', on: :member
     end
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :comments, only: [] do
     resources :comments, only: :create
-    resources :votes, only: :create do
+    resources :votes, only: [] do
       post 'upvote', on: :member
       post 'downvote', on: :member
     end
