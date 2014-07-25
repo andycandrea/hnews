@@ -3,5 +3,5 @@ class Vote < ActiveRecord::Base
   belongs_to :votable, polymorphic: true
 
   validates :user, :votable, presence: true
-  validates :user, presence: true, uniqueness: { scope: :votable }
+  validates :user, uniqueness: { scope: [:votable_id, :votable_type] }
 end

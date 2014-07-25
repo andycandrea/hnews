@@ -2,7 +2,7 @@
   <div><%= comment.body %></div>
   
   <%= render partial: 'shared/commentable_user_info', locals: { div_class: 'posted-by', resource: comment } %>
-  <%= render '/votes/vote', object: comment %>
+  <%= render 'votes/vote', object: comment %>
   
   <div class="reply-div">
     <input type="button" class="reply-button btn" value="Reply">

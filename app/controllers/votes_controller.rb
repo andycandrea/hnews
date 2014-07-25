@@ -1,4 +1,5 @@
 class VotesController < ApplicationController
+  skip_before_action :store_redirect_url
   before_action :require_signin
   before_action :vote, only: [:upvote, :downvote]
 
@@ -21,11 +22,11 @@ class VotesController < ApplicationController
   end
 
   def create
-    if vote.save
-      redirect_to redirect_url
-    else
-      flash.now[:danger] = 'Invalid vote'
+    unless vote.save
+      flash[:danger] = 'Invalid vote'
     end
+
+    redirect_to redirect_url
   end
 
   def destroy

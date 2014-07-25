@@ -2,10 +2,12 @@
   <%= "The score is: #{Vote.where(votable_type: object.class, votable_id: object.id, is_up: true).count - Vote.where(votable_type: object.class, votable_id: object.id, is_up: false).count}" %>
 </div>
 
-<%= simple_form_for Vote.new, url: "#{vote_url(object)}upvote" do |f| %>
-  <%= f.button :submit, 'Upvote' %>
-<% end %>
+<% if signed_in? %>
+  <%= simple_form_for Vote.new, url: "#{vote_url(object)}upvote" do |f| %>
+    <%= f.button :submit, 'Upvote' %>
+  <% end %>
 
-<%= simple_form_for Vote.new, url: "#{vote_url(object)}downvote" do |f| %>
-  <%= f.button :submit, 'Downvote' %>
+  <%= simple_form_for Vote.new, url: "#{vote_url(object)}downvote" do |f| %>
+    <%= f.button :submit, 'Downvote' %>
+  <% end %>
 <% end %>
