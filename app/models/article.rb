@@ -13,6 +13,10 @@ class Article < ActiveRecord::Base
     @url_host ||= URI(url).host
   end
 
+  def num_comments 
+    comments.inject(comments.count) { |sum, comment| sum + comment.num_replies }
+  end
+
   private
 
   def single_article_type

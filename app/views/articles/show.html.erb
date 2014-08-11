@@ -1,10 +1,12 @@
-<%= render partial: 'shared/article_info', locals: { class_substring: '-show', article: @article } %>
+<div class="article-div">
+  <%= render 'votes/vote', object: @article %>
 
-<%= render partial: 'shared/commentable_user_info', locals: { div_class: '', resource: @article } %>
+  <%= render partial: 'shared/article_info', locals: { class_substring: '-show', article: @article } %>
 
-<%= render partial: 'shared/article_content', locals: { article: @article } %>
+  <%= render partial: 'shared/commentable_user_info', locals: { div_class: '', comment_link: false, resource: @article } %>
 
-<%= render 'votes/vote', object: @article %>
+  <%= render partial: 'shared/article_content', locals: { article: @article } %>
+</div>
 
 <% if signed_in? %>
   <%= simple_form_for comment, url: article_comments_path(@article.id), method: :post do |f| %>
