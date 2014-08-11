@@ -1,13 +1,8 @@
-<div>
-  <%= "The score is: #{Vote.where(votable_type: object.class, votable_id: object.id, is_up: true).count - Vote.where(votable_type: object.class, votable_id: object.id, is_up: false).count}" %>
+<div id="<%= votable_id_attr(object) %>">
+  <%= votable_score(object) %>
 </div>
 
 <% if signed_in? %>
-  <%= simple_form_for Vote.new, url: "#{vote_url(object)}upvote" do |f| %>
-    <%= f.button :submit, 'Upvote' %>
-  <% end %>
-
-  <%= simple_form_for Vote.new, url: "#{vote_url(object)}downvote" do |f| %>
-    <%= f.button :submit, 'Downvote' %>
-  <% end %>
+  <%= link_to 'Upvote', "#{vote_url(object)}upvote", remote: true, method: :post, data: { type: :json } %>
+  <%= link_to 'Downvote', "#{vote_url(object)}downvote", remote: true, method: :post, data: { type: :json } %>
 <% end %>

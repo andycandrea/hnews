@@ -22,11 +22,14 @@ class VotesController < ApplicationController
   end
 
   def create
-    unless vote.save
-      flash[:danger] = 'Invalid vote'
+    respond_to do |format|
+      if vote.save
+        format.html { redirect_to :back }
+        format.js { }
+      else
+        flash[:danger] = 'Invalid vote'
+      end
     end
-
-    redirect_to redirect_url
   end
 
   def destroy
@@ -55,4 +58,5 @@ class VotesController < ApplicationController
       nil
     end
   end
+  helper_method :votable
 end

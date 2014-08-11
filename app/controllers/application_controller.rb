@@ -76,9 +76,4 @@ class ApplicationController < ActionController::Base
   def redirect_url
     session[:redirect_url] || root_path
   end
-
-  def vote_url(object)
-    "/#{object.class.to_s.downcase}s/#{object.id}/votes/1/"
-  end
-  helper_method :vote_url
 end
