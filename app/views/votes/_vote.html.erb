@@ -1,8 +1,19 @@
-<div id="<%= votable_id_attr(object) %>">
-  <%= votable_score(object) %>
-</div>
-
+<div class="votes">
 <% if signed_in? %>
-  <%= link_to 'Upvote', "#{vote_url(object)}upvote", remote: true, method: :post, data: { type: :json } %>
-  <%= link_to 'Downvote', "#{vote_url(object)}downvote", remote: true, method: :post, data: { type: :json } %>
+  <%= link_to "#{vote_url(object)}upvote", remote: true, method: :post, data: { type: 'script' } do %>
+    <div class="up vote"></div>
+  <% end %>
+
+  <div class="score" id="<%= votable_id_attr(object) %>">
+    <b><%= votable_score(object) %></b>
+  </div>
+
+  <%= link_to "#{vote_url(object)}downvote", remote: true, method: :post, data: { type: :'script' } do %>
+    <div class="down vote"></div>
+  <% end %>
+<% else %>
+  <div class="score" id="<%= votable_id_attr(object) %>">
+    <b><%= votable_score(object) %></b>
+  </div>
 <% end %>
+</div>
