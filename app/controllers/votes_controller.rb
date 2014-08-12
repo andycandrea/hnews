@@ -26,7 +26,8 @@ class VotesController < ApplicationController
       if vote.save
         format.js
       else
-        flash[:danger] = 'Invalid vote'
+        format.html { redirect_to :back }
+        flash.now[:danger] = 'Invalid vote'
       end
     end
   end
@@ -35,6 +36,9 @@ class VotesController < ApplicationController
     respond_to do |format|
       if vote.destroy
         format.js
+      else
+        format.html { redirect_to :back }
+        flash.now[:danger] = 'Vote cannot be destroyed'
       end
     end
   end
