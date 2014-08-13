@@ -6,7 +6,7 @@ FactoryGirl.define do
     user
 
     trait :on_article do
-      commentable_type article
+      association :commentable, factory: [:article, :has_url]
     end
 
     trait :on_comment do
