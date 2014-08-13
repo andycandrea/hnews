@@ -4,4 +4,12 @@ class Vote < ActiveRecord::Base
 
   validates :user, :votable, presence: true
   validates :user, uniqueness: { scope: [:votable_id, :votable_type] }
+
+  def up?
+    is_up?
+  end
+
+  def down?
+    is_up == false 
+  end
 end

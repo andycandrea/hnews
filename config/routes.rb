@@ -1,22 +1,19 @@
 Rails.application.routes.draw do
   root to: 'articles#index'
 
-  resources :articles, only: [:index, :show] do
+  concern :commentable do
     resources :comments, only: :create
-    resources :votes, only: [] do
-      post 'upvote', on: :member
-      post 'downvote', on: :member
-    end
   end
 
-  resources :comments, only: [] do
-    resources :comments, only: :create
-    resources :votes, only: [] do
-      post 'upvote', on: :member
-      post 'downvote', on: :member
+  concern :votable do
+    member do
+      post 'upvote'
+      post 'downvote'
     end
   end
   
+  resources :articles, only: [:index, :show], concerns: [:votable, :commentable]
+  resources :comments, only: [], concerns: [:votable, :commentable]  
   resources :users, only: [:edit, :update]
   resources :password_resets, only: [:edit, :update]
 
