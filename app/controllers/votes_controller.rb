@@ -24,7 +24,7 @@ class VotesController < ApplicationController
   def create
     respond_to do |format|
       if vote.save
-        format.js
+        format.js { render template: 'votes/vote' }
       else
         format.html { redirect_to :back }
         flash.now[:danger] = 'Invalid vote'
@@ -35,7 +35,7 @@ class VotesController < ApplicationController
   def destroy
     respond_to do |format|
       if vote.destroy
-        format.js
+        format.js { render template: 'votes/vote' }
       else
         format.html { redirect_to :back }
         flash.now[:danger] = 'Vote cannot be destroyed'
