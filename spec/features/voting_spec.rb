@@ -9,9 +9,9 @@ describe 'Voting' do
     it 'shows scores but does not allow voting' do
       visit '/'
 
-      expect(page).to have_content('The score is: 3')
-      expect(page).to_not have_selector("input[type=submit][value='Upvote']")
-      expect(page).to_not have_selector("input[type=submit][value='Downvote']")
+      expect(page).to have_content('3')
+      expect(page).to_not have_css('a.upvote-link')
+      expect(page).to_not have_css('a.downvote-link')
     end
   end
 
@@ -20,74 +20,71 @@ describe 'Voting' do
 
     before { sign_in(user) }
 
-    context 'voting on an article' do
+    context 'voting on an article', js: true do
       it 'displays the initial score before voting' do
-        expect(page).to have_content('The score is: 3')
+        expect(page).to have_content('3')
       end
 
       it 'allows a User to upvote' do
-        click_button 'Upvote'
-        expect(page).to have_content('The score is: 4')
+        find('a.upvote-link').click
+        expect(page).to have_content('4')
       end
 
       it 'allows a User to downvote' do
-        click_button 'Downvote'
-        expect(page).to have_content('The score is: 2')
+        find('a.downvote-link').click
+        expect(page).to have_content('2')
       end
 
       it 'allows the User to delete their vote' do
-        click_button 'Upvote'
-        expect(page).to have_content('The score is: 4')
+        find('a.upvote-link').click
+        expect(page).to have_content('4')
 
-        click_button 'Upvote'
-        expect(page).to have_content('The score is: 3')
+        find('a.upvote-link').click
+        expect(page).to have_content('3')
       end
 
       it 'allows the User to change their vote' do
-        click_button 'Upvote'
-        expect(page).to have_content('The score is: 4')
+        find('a.upvote-link').click
+        expect(page).to have_content('4')
 
-        click_button 'Downvote'
-        expect(page).to have_content('The score is: 2')
+        find('a.downvote-link').click
+        expect(page).to have_content('2')
       end
     end
 
-    context 'voting on a comment' do
+    context 'voting on a comment', js: true do
       let!(:comment) { create(:comment, commentable: article) }
 
-      before { click_link 'View post' }
+      before { visit article_path(article) }
 
       it 'displays the initial score before voting' do
-        within('.comments') { expect(page).to have_content('The score is: 0') }
+        within('.comments') { expect(page).to have_content('0') }
       end
 
       it 'allows a User to upvote' do
-        within('.comments') { click_button 'Upvote' }
-        
-        expect(page).to have_content('The score is: 1')
+        within('.comments') { find('a.upvote-link').click }
+        expect(page).to have_content('1')
       end
 
       it 'allows a User to downvote' do
-        within('.comments') { click_button 'Downvote' }
-
-        expect(page).to have_content('The score is: -1')
+        within('.comments') { find('a.downvote-link').click }
+        expect(page).to have_content('-1')
       end
 
       it 'allows the User to delete their vote' do
-        within('.comments') { click_button 'Upvote' }
-        expect(page).to have_content('The score is: 1')
+        within('.comments') { find('a.upvote-link').click }
+        expect(page).to have_content('1')
 
-        within('.comments') { click_button 'Upvote' }
-        expect(page).to have_content('The score is: 0')
+        within('.comments') { find('a.upvote-link').click }
+        expect(page).to have_content('0')
       end
 
       it 'allows the User to change their vote' do
-        within('.comments') { click_button 'Upvote' }
-        expect(page).to have_content('The score is: 1')
+        within('.comments') { find('a.upvote-link').click }
+        expect(page).to have_content('1')
 
-
-        within('.comments') { click_button 'Downvote' }
-        expect(page).to have_content('The score is: -1')
+        within('.comments') { find('a.downvote-link').click }
+        expect(page).to have_content('-1')
       end
     end
   end

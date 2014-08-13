@@ -50,7 +50,7 @@ class VotesController < ApplicationController
   end
 
   def vote
-    @vote ||= current_user.votes.where(votable_type: votable.class, votable_id: votable.id).first || current_user.votes.build(votable: votable)
+    @vote ||= current_user.votes.where(votable: votable).first_or_initialize
   end
 
   def votable
