@@ -3,7 +3,7 @@
     <%= render 'votes/vote', object: article %>
 
     <%= render partial: 'shared/article_info', locals: { class_substring: '', article: article } %>
-    
+
     <%= render partial: 'shared/commentable_user_info', locals: { div_class: 'posted-by', comment_link: true, resource: article } %>
 
     <%= render partial: 'shared/article_content', locals: { article: article } %>
