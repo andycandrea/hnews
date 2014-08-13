@@ -1,15 +1,7 @@
-.article-info, .posted-by, .comment-body {
-  position: relative;
+.article-info, .comment-body, .posted-by {
   left: 1em;
+  position: relative;
   width: calc(100% - 1.6em);
-}
-
-.up {
-  border-bottom: 0.6em solid black;
-}
-
-.up.clicked {
-  border-bottom: 0.6em solid #ff5f19;
 }
 
 .down {
@@ -20,13 +12,17 @@
   border-top: 0.6em solid #009aba;
 }
 
-.votes {
-  float: left;
-}
-
 .score {
   font-size: 14px;
   text-align: center;
+}
+
+.up {
+  border-bottom: 0.6em solid black;
+}
+
+.up.clicked {
+  border-bottom: 0.6em solid #ff5f19;
 }
 
 .vote {
@@ -34,4 +30,8 @@
   border-right: 0.6em solid transparent;
   height: 0;
   width: 0;
+}
+
+.votes {
+  float: left;
 }

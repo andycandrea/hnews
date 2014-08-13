@@ -8,7 +8,7 @@ class VotesController < ApplicationController
       destroy
     else
       vote.is_up = true
-      create
+      create_or_update
     end
   end
 
@@ -17,11 +17,11 @@ class VotesController < ApplicationController
       destroy
     else
       vote.is_up = false
-      create
+      create_or_update
     end
   end
 
-  def create
+  def create_or_update
     respond_to do |format|
       if vote.save
         format.js { render template: 'votes/vote' }
