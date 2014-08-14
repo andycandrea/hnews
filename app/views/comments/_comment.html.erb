@@ -1,4 +1,4 @@
-<div class="comment <%= cycle('odd-comment', 'even-comment') %>">
+<div class="comment">
   <%= render 'votes/vote', object: comment %>
   
   <div class="comment-body"><%= comment.body %></div>
@@ -6,7 +6,11 @@
   <%= render partial: 'shared/commentable_user_info', locals: { div_class: 'posted-by', comment_link: false, resource: comment } %>
   
   <div class="reply-div">
-    <input type="button" class="reply-button btn" value="Reply">
+    <% if signed_in? %>
+      <input type="button" class="reply-button btn" value="Reply">
+    <% else %>
+      <%= link_to 'Sign in to reply!', signin_path %>
+    <% end %>
   </div>
 
   <div class="reply-form">
