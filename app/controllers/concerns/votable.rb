@@ -3,20 +3,26 @@ module Votable
 
   included { helper_method :votable }
 
+  def upvote
+    update_vote(:up)
+  end
+
+  def downvote
+    update_vote(:down)
+  end
+
+  private
+
   def vote
     @vote ||= current_user.votes.where(votable: votable).first_or_initialize
   end
 
   def votable
-    @votable = begin
-      if params[:controller] == 'articles'
-        return Article.find(params[:id])
-      elsif params[:controller] == 'comments'
-        return Comment.find(params[:id])
-      end
+    @votable = resource_klass.find(params[:id])
+  end
 
-      nil
-    end
+  def resource_klass
+    params[:controller].singularize.classify.constantize
   end
 
   def update_vote(direction)

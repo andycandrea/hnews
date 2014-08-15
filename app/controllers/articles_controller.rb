@@ -25,14 +25,6 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
   end
-  
-  def upvote
-    update_vote(:up)
-  end
-
-  def downvote
-    update_vote(:down)
-  end
 
   private
 

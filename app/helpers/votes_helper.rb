@@ -1,8 +1,4 @@
 module VotesHelper
-  def vote_url(votable)
-    "/#{votable.class.to_s.downcase}s/#{votable.id}/"
-  end
-
   def votable_score(votable)
     votes = votable.votes
 

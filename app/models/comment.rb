@@ -7,10 +7,6 @@ class Comment < ActiveRecord::Base
   validates :body, :commentable, :user, presence: true
 
   def num_replies 
-    if comments.any?
-      comments.inject(comments.count) { |sum, reply| sum + reply.num_replies }
-    else
-      0
-    end
+    comments.inject(comments.count) { |sum, reply| sum + reply.num_replies }
   end
 end

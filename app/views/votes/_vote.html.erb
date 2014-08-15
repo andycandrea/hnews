@@ -1,19 +1,19 @@
 <div class="votes">
   <% if signed_in? %>
-    <%= link_to "#{vote_url(object)}upvote", remote: true, method: :post, data: { type: 'script' }, class: "upvote-link" do %>
-      <%= vote_arrow('up', object) %>
+    <%= link_to polymorphic_path([:upvote, resource]), remote: true, method: :post, data: { type: 'script' }, class: "upvote-link" do %>
+      <%= vote_arrow('up', resource) %>
     <% end %>
 
-    <div class="score" id="<%= votable_id_attr(object) %>">
-      <b><%= votable_score(object) %></b>
+    <div class="score" id="<%= votable_id_attr(resource) %>">
+      <b><%= votable_score(resource) %></b>
     </div>
 
-    <%= link_to "#{vote_url(object)}downvote", remote: true, method: :post, data: { type: :'script' }, class: "downvote-link" do %>
-      <%= vote_arrow('down', object) %>
+    <%= link_to polymorphic_path([:downvote, resource]), remote: true, method: :post, data: { type: :'script' }, class: "downvote-link" do %>
+      <%= vote_arrow('down', resource) %>
     <% end %>
   <% else %>
-    <div class="score" id="<%= votable_id_attr(object) %>">
-      <b><%= votable_score(object) %></b>
+    <div class="score" id="<%= votable_id_attr(resource) %>">
+      <b><%= votable_score(resource) %></b>
     </div>
   <% end %>
 </div>

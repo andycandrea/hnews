@@ -13,14 +13,6 @@ class CommentsController < ApplicationController
 
     redirect_to redirect_url
   end
-
-  def upvote
-    update_vote(:up)
-  end
-
-  def downvote
-    update_vote(:down)
-  end
   
   private
 
