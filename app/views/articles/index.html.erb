@@ -1,13 +1,12 @@
 <% @articles.each do |article| %>
   <div class="article-div">
-    <%= render partial: 'shared/article_info', locals: { class_substring: '', article: article } %>
-    
-    <%= render partial: 'shared/commentable_user_info', locals: { div_class: 'posted-by col-lg-6', resource: article } %>
+    <%= render 'votes/vote', resource: article %>
 
-    <div class="col-lg-6"><%= link_to "View post", article_path(article) %></div>
+    <%= render partial: 'shared/article_info', locals: { class_substring: '', article: article } %>
+
+    <%= render partial: 'shared/commentable_user_info', locals: { div_class: 'posted-by', comment_link: true, resource: article } %>
 
     <%= render partial: 'shared/article_content', locals: { article: article } %>
-
   </div>
 <% end %>
 
@@ -22,4 +21,3 @@
     <% end %>
   </div>
 <% end %>
-

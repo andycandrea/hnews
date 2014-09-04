@@ -1,7 +1,10 @@
 class ArticlesController < ApplicationController
+  include Votable
+
   PER_PAGE = 20
   
-  before_action :require_signin, only: [:new, :create]
+  before_action :require_signin, except: [:index, :show]
+  skip_before_action :store_redirect_url, except: [:new, :create, :index, :show]
 
   def new
     @article = Article.new

@@ -4,6 +4,12 @@ $('.comment').each(function() {
       $formDiv  = $this.children(".reply-form:first"),
       $buttons  = $this.find(".reply-button:first, .cancel-button:first");
 
+  if ($this.parent().hasClass('odd-comment')) {
+    $this.addClass('even-comment');
+  } else {
+    $this.addClass('odd-comment');
+  }
+
   $buttons.click(function(e) {
     e.preventDefault();
 

@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  include Votable
+
   skip_before_action :store_redirect_url
   before_action :require_signin
   
@@ -11,7 +13,7 @@ class CommentsController < ApplicationController
 
     redirect_to redirect_url
   end
-
+  
   private
 
   def comment_params

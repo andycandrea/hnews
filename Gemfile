@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.1.2'
+
 gem 'dotenv-rails', :groups => [:development, :test]
 
 gem 'rails', '4.1.1'
@@ -31,8 +33,9 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 gem 'rails_12factor', group: :production
 
-ruby "2.1.2"

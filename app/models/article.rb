@@ -1,7 +1,8 @@
 class Article < ActiveRecord::Base
   belongs_to :user
   has_many :comments, as: :commentable
-  
+  has_many :votes, as: :votable
+
   before_validation :prepend_url_scheme, if: :url?
 
   validates :title, :user, presence: true
@@ -10,6 +11,10 @@ class Article < ActiveRecord::Base
 
   def url_host
     @url_host ||= URI(url).host
+  end
+
+  def num_comments 
+    comments.inject(comments.count) { |sum, comment| sum + comment.num_replies }
   end
 
   private
